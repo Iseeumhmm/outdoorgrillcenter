@@ -69,6 +69,9 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    posts: Post;
+    authors: Author;
+    categories: Category;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +81,9 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
+    authors: AuthorsSelect<false> | AuthorsSelect<true>;
+    categories: CategoriesSelect<false> | CategoriesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -86,8 +92,12 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    settings: Setting;
+  };
+  globalsSelect: {
+    settings: SettingsSelect<false> | SettingsSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -146,6 +156,18 @@ export interface User {
 export interface Media {
   id: number;
   alt: string;
+  /**
+   * Optional caption for images in post body
+   */
+  caption?: string | null;
+  /**
+   * Auto-generated placeholder for blur-up loading effect
+   */
+  blurDataURL?: string | null;
+  /**
+   * Dominant color extracted from image (hex format)
+   */
+  imageColor?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -155,6 +177,98 @@ export interface Media {
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  title: string;
+  slug: string;
+  mainImage: number | Media;
+  /**
+   * Brief summary for post listings (200-300 characters recommended)
+   */
+  excerpt?: string | null;
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  author: number | Author;
+  categories?: (number | Category)[] | null;
+  publishedAt?: string | null;
+  /**
+   * Estimated reading time in minutes (auto-calculated from body)
+   */
+  estReadingTime?: number | null;
+  /**
+   * Mark as featured for homepage hero display
+   */
+  featured?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors".
+ */
+export interface Author {
+  id: number;
+  name: string;
+  slug: string;
+  image: number | Media;
+  /**
+   * Author biography displayed on post pages and author archive
+   */
+  bio?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Optional contact email
+   */
+  email?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: number;
+  title: string;
+  slug: string;
+  color: 'green' | 'blue' | 'orange' | 'purple' | 'pink';
+  /**
+   * Optional description for category archive pages
+   */
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -187,6 +301,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'posts';
+        value: number | Post;
+      } | null)
+    | ({
+        relationTo: 'authors';
+        value: number | Author;
+      } | null)
+    | ({
+        relationTo: 'categories';
+        value: number | Category;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -258,6 +384,9 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  caption?: T;
+  blurDataURL?: T;
+  imageColor?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -267,6 +396,49 @@ export interface MediaSelect<T extends boolean = true> {
   filesize?: T;
   width?: T;
   height?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  mainImage?: T;
+  excerpt?: T;
+  body?: T;
+  author?: T;
+  categories?: T;
+  publishedAt?: T;
+  estReadingTime?: T;
+  featured?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors_select".
+ */
+export interface AuthorsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  image?: T;
+  bio?: T;
+  email?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories_select".
+ */
+export interface CategoriesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  color?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -307,6 +479,74 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings".
+ */
+export interface Setting {
+  id: number;
+  /**
+   * Site title used in metadata and SEO
+   */
+  title: string;
+  /**
+   * Site description for SEO (160 characters recommended)
+   */
+  description: string;
+  /**
+   * Full site URL (e.g., https://example.com)
+   */
+  url: string;
+  /**
+   * Logo for light mode
+   */
+  logo: number | Media;
+  /**
+   * Logo for dark mode
+   */
+  logoalt: number | Media;
+  /**
+   * Default image for social media previews
+   */
+  openGraphImage?: (number | null) | Media;
+  /**
+   * Copyright text displayed in footer
+   */
+  copyright: string;
+  /**
+   * Contact email address
+   */
+  email?: string | null;
+  /**
+   * Contact phone number
+   */
+  phone?: string | null;
+  /**
+   * Web3Forms API key for contact form submissions
+   */
+  w3ckey: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings_select".
+ */
+export interface SettingsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  url?: T;
+  logo?: T;
+  logoalt?: T;
+  openGraphImage?: T;
+  copyright?: T;
+  email?: T;
+  phone?: T;
+  w3ckey?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
