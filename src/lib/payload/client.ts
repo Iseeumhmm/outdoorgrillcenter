@@ -2,19 +2,19 @@ import 'server-only'
 
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import configPromise from '@payload-config'
-import type { Post, Author, Category, Media, Setting } from '@/payload-types'
+import type { Review, Author, Category, Media, Setting } from '@/payload-types'
 
 /**
- * Get all published posts with populated relationships
- * @param limit - Maximum number of posts to return (default: 100)
- * @returns Array of posts with author, categories, and mainImage populated
+ * Get all published reviews with populated relationships
+ * @param limit - Maximum number of reviews to return (default: 100)
+ * @returns Array of reviews with author, categories, and mainImage populated
  */
-export async function getAllPosts(limit: number = 100) {
+export async function getAllReviews(limit: number = 100) {
   try {
     const payload = await getPayloadHMR({ config: configPromise })
 
-    const { docs: posts } = await payload.find({
-      collection: 'posts',
+    const { docs: reviews } = await payload.find({
+      collection: 'reviews',
       depth: 2,
       limit,
       sort: '-publishedAt',
@@ -25,20 +25,20 @@ export async function getAllPosts(limit: number = 100) {
       },
     })
 
-    return posts
+    return reviews
   } catch (error) {
-    console.warn('Failed to fetch posts:', error instanceof Error ? error.message : 'Unknown error')
+    console.warn('Failed to fetch reviews:', error instanceof Error ? error.message : 'Unknown error')
     return []
   }
 }
 
 /**
- * Get paginated posts
+ * Get paginated reviews
  * @param pageIndex - Page offset (0-based)
- * @param limit - Number of posts per page
- * @returns Object with posts array and pagination info
+ * @param limit - Number of reviews per page
+ * @returns Object with reviews array and pagination info
  */
-export async function getPaginatedPosts({
+export async function getPaginatedReviews({
   pageIndex = 0,
   limit = 10,
 }: {
@@ -49,7 +49,7 @@ export async function getPaginatedPosts({
     const payload = await getPayloadHMR({ config: configPromise })
 
     const result = await payload.find({
-      collection: 'posts',
+      collection: 'reviews',
       depth: 2,
       limit,
       page: pageIndex + 1, // Payload uses 1-based page numbers
@@ -62,7 +62,7 @@ export async function getPaginatedPosts({
     })
 
     return {
-      posts: result.docs,
+      reviews: result.docs,
       total: result.totalDocs,
       page: result.page,
       totalPages: result.totalPages,
@@ -70,9 +70,9 @@ export async function getPaginatedPosts({
       hasPrevPage: result.hasPrevPage,
     }
   } catch (error) {
-    console.warn('Failed to fetch paginated posts:', error instanceof Error ? error.message : 'Unknown error')
+    console.warn('Failed to fetch paginated reviews:', error instanceof Error ? error.message : 'Unknown error')
     return {
-      posts: [],
+      reviews: [],
       total: 0,
       page: 1,
       totalPages: 0,
@@ -83,16 +83,16 @@ export async function getPaginatedPosts({
 }
 
 /**
- * Get a single post by slug
- * @param slug - Post slug
- * @returns Post object with all relationships populated, or null if not found
+ * Get a single review by slug
+ * @param slug - Review slug
+ * @returns Review object with all relationships populated, or null if not found
  */
-export async function getPostBySlug(slug: string) {
+export async function getReviewBySlug(slug: string) {
   try {
     const payload = await getPayloadHMR({ config: configPromise })
 
     const { docs } = await payload.find({
-      collection: 'posts',
+      collection: 'reviews',
       depth: 2,
       limit: 1,
       where: {
@@ -104,20 +104,20 @@ export async function getPostBySlug(slug: string) {
 
     return docs[0] || null
   } catch (error) {
-    console.warn('Failed to fetch post by slug:', error instanceof Error ? error.message : 'Unknown error')
+    console.warn('Failed to fetch review by slug:', error instanceof Error ? error.message : 'Unknown error')
     return null
   }
 }
 
 /**
- * Get all post slugs for static generation
+ * Get all review slugs for static generation
  * @returns Array of objects with slug property
  */
-export async function getAllPostsSlugs() {
+export async function getAllReviewsSlugs() {
   const payload = await getPayloadHMR({ config: configPromise })
 
   const { docs } = await payload.find({
-    collection: 'posts',
+    collection: 'reviews',
     depth: 0,
     limit: 1000,
     select: {
@@ -125,7 +125,7 @@ export async function getAllPostsSlugs() {
     },
   })
 
-  return docs.map((post) => ({ slug: post.slug }))
+  return docs.map((review) => ({ slug: review.slug }))
 }
 
 /**
@@ -178,7 +178,7 @@ export async function getAuthorBySlug(slug: string) {
 }
 
 /**
- * Get all categories with post counts
+ * Get all categories with review counts
  * @returns Array of categories
  */
 export async function getAllCategories() {
@@ -192,11 +192,11 @@ export async function getAllCategories() {
       sort: 'title',
     })
 
-    // Get post counts for each category
+    // Get review counts for each category
     const categoriesWithCounts = await Promise.all(
       categories.map(async (category) => {
         const { totalDocs } = await payload.find({
-          collection: 'posts',
+          collection: 'reviews',
           depth: 0,
           limit: 0,
           where: {
@@ -275,14 +275,14 @@ export async function getSettings() {
 }
 
 /**
- * Get related posts based on shared categories
- * @param postId - Current post ID to exclude
+ * Get related reviews based on shared categories
+ * @param reviewId - Current review ID to exclude
  * @param categories - Array of category IDs or objects
- * @param limit - Number of related posts to return (default: 3)
- * @returns Array of related posts
+ * @param limit - Number of related reviews to return (default: 3)
+ * @returns Array of related reviews
  */
-export async function getRelatedPosts(
-  postId: string,
+export async function getRelatedReviews(
+  reviewId: string,
   categories: Array<string | Category>,
   limit: number = 3,
 ) {
@@ -297,14 +297,14 @@ export async function getRelatedPosts(
     }
 
     const { docs } = await payload.find({
-      collection: 'posts',
+      collection: 'reviews',
       depth: 1,
       limit,
       where: {
         and: [
           {
             id: {
-              not_equals: postId,
+              not_equals: reviewId,
             },
           },
           {
@@ -318,7 +318,14 @@ export async function getRelatedPosts(
 
     return docs
   } catch (error) {
-    console.warn('Failed to fetch related posts:', error instanceof Error ? error.message : 'Unknown error')
+    console.warn('Failed to fetch related reviews:', error instanceof Error ? error.message : 'Unknown error')
     return []
   }
 }
+
+// Legacy aliases for backward compatibility
+export const getAllPosts = getAllReviews
+export const getPaginatedPosts = getPaginatedReviews
+export const getPostBySlug = getReviewBySlug
+export const getAllPostsSlugs = getAllReviewsSlugs
+export const getRelatedPosts = getRelatedReviews

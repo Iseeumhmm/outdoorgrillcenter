@@ -69,7 +69,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
-    posts: Post;
+    reviews: Review;
     authors: Author;
     categories: Category;
     'payload-kv': PayloadKv;
@@ -81,7 +81,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    posts: PostsSelect<false> | PostsSelect<true>;
+    reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     authors: AuthorsSelect<false> | AuthorsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -180,15 +180,15 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
+ * via the `definition` "reviews".
  */
-export interface Post {
+export interface Review {
   id: number;
   title: string;
   slug: string;
   mainImage: number | Media;
   /**
-   * Brief summary for post listings (200-300 characters recommended)
+   * Brief summary for review listings (200-300 characters recommended)
    */
   excerpt?: string | null;
   body: {
@@ -205,6 +205,48 @@ export interface Post {
       version: number;
     };
     [k: string]: unknown;
+  };
+  /**
+   * Product rating (1-5 scale, 0.5 increments supported)
+   */
+  rating: number;
+  /**
+   * Full product name
+   */
+  productName: string;
+  /**
+   * Brand (Weber, Traeger, Pit Boss, etc.)
+   */
+  productBrand: string;
+  /**
+   * Model number/identifier
+   */
+  productModel?: string | null;
+  /**
+   * Amazon Standard Identification Number (when available)
+   */
+  amazonASIN?: string | null;
+  /**
+   * Price at time of review in USD/CAD
+   */
+  productPrice?: number | null;
+  /**
+   * Type of grill/smoker
+   */
+  productType?: ('pellet-grill' | 'gas-grill' | 'charcoal-grill' | 'kamado' | 'electric-smoker' | 'portable') | null;
+  prosAndCons?: {
+    pros?:
+      | {
+          item: string;
+          id?: string | null;
+        }[]
+      | null;
+    cons?:
+      | {
+          item: string;
+          id?: string | null;
+        }[]
+      | null;
   };
   author: number | Author;
   categories?: (number | Category)[] | null;
@@ -303,8 +345,8 @@ export interface PayloadLockedDocument {
         value: number | Media;
       } | null)
     | ({
-        relationTo: 'posts';
-        value: number | Post;
+        relationTo: 'reviews';
+        value: number | Review;
       } | null)
     | ({
         relationTo: 'authors';
@@ -399,14 +441,37 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts_select".
+ * via the `definition` "reviews_select".
  */
-export interface PostsSelect<T extends boolean = true> {
+export interface ReviewsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   mainImage?: T;
   excerpt?: T;
   body?: T;
+  rating?: T;
+  productName?: T;
+  productBrand?: T;
+  productModel?: T;
+  amazonASIN?: T;
+  productPrice?: T;
+  productType?: T;
+  prosAndCons?:
+    | T
+    | {
+        pros?:
+          | T
+          | {
+              item?: T;
+              id?: T;
+            };
+        cons?:
+          | T
+          | {
+              item?: T;
+              id?: T;
+            };
+      };
   author?: T;
   categories?: T;
   publishedAt?: T;

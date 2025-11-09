@@ -10,7 +10,7 @@ import { r2Storage } from '@payloadcms/storage-r2'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
-import { Posts } from './collections/Posts'
+import { Reviews } from './collections/Reviews'
 import { Authors } from './collections/Authors'
 import { Categories } from './collections/Categories'
 import { Settings } from './globals/Settings'
@@ -31,7 +31,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, Authors, Categories],
+  collections: [Users, Media, Reviews, Authors, Categories],
   globals: [Settings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
