@@ -33,7 +33,7 @@ export default async function ReviewsArchivePage({ searchParams }) {
       <Container>
         {/* Page Header */}
         <div className="mb-12 text-center">
-          <h1 className="text-[#2D2D2D] text-4xl font-bold tracking-tight dark:text-white lg:text-5xl">
+          <h1 className="text-4xl font-bold tracking-tight text-bbq-charcoal dark:text-white lg:text-5xl">
             Grill Reviews
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-600 dark:text-gray-400">
@@ -130,10 +130,10 @@ function BrowseTypeCard({ type, label, icon }) {
   return (
     <a
       href={`/reviews/type/${type}`}
-      className="group flex flex-col items-center gap-3 rounded-lg border border-gray-200 bg-white p-6 text-center transition-all hover:border-[#D32F2F] hover:shadow-md dark:border-gray-800 dark:bg-gray-900 dark:hover:border-[#D32F2F]"
+      className="group flex flex-col items-center gap-3 rounded-lg border border-gray-200 bg-white p-6 text-center transition-all hover:border-bbq-fire hover:shadow-md dark:border-gray-800 dark:bg-gray-900 dark:hover:border-bbq-fire"
     >
       <span className="text-4xl">{icon}</span>
-      <span className="font-semibold text-gray-900 group-hover:text-[#D32F2F] dark:text-white">
+      <span className="font-semibold text-gray-900 group-hover:text-bbq-fire dark:text-white">
         {label}
       </span>
     </a>

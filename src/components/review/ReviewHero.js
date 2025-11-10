@@ -51,7 +51,7 @@ export default function ReviewHero({ review, showImage = true }) {
       </div>
 
       {/* Product Name (Large Heading) */}
-      <h1 className="text-[#2D2D2D] mb-6 text-4xl font-bold leading-tight tracking-tight dark:text-white md:text-5xl">
+      <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-bbq-charcoal dark:text-white md:text-5xl">
         {productName}
       </h1>
 

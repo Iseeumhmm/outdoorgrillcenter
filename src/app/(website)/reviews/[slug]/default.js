@@ -124,7 +124,7 @@ export default async function ReviewPage({ review }) {
           <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-gray-200 pt-8 dark:border-gray-800">
             <Link
               href="/reviews"
-              className="text-[#2D2D2D] inline-flex items-center gap-2 font-medium hover:underline"
+              className="inline-flex items-center gap-2 font-medium text-bbq-charcoal hover:underline dark:text-white"
             >
               <svg
                 className="h-5 w-5"
@@ -145,7 +145,7 @@ export default async function ReviewPage({ review }) {
             {review.productType && (
               <Link
                 href={`/reviews/type/${review.productType}`}
-                className="text-[#2D2D2D] inline-flex items-center gap-2 font-medium hover:underline"
+                className="inline-flex items-center gap-2 font-medium text-bbq-charcoal hover:underline dark:text-white"
               >
                 More {formatProductType(review.productType)} Reviews
                 <svg
