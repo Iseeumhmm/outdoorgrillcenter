@@ -25,7 +25,7 @@ export default async function CategoryPage({ category }) {
       <div className="mx-auto max-w-screen-md">
         <div className="flex flex-col items-center gap-5">
           <Label color={category.color}>{category.title}</Label>
-          <h1 className="text-brand-primary text-center text-3xl font-semibold tracking-tight dark:text-white lg:text-4xl lg:leading-snug">
+          <h1 className="text-[#2D2D2D] text-center text-3xl font-semibold tracking-tight dark:text-white lg:text-4xl lg:leading-snug">
             {category.title}
           </h1>
           {category.description && (

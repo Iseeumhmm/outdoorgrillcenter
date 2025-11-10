@@ -1,1 +1,122 @@
 @import "tailwindcss";
+
+@theme {
+  /* BBQ Color Palette - Using Tailwind v4 color registration */
+  --color-bbq-charcoal: #2D2D2D;
+  --color-bbq-fire: #D32F2F;
+  --color-bbq-fire-dark: #B71C1C;
+  --color-bbq-orange: #FF6F00;
+  --color-bbq-orange-dark: #E65100;
+  --color-bbq-amber: #FFA726;
+  --color-bbq-brown: #6D4C41;
+  --color-bbq-green: #7CB342;
+  --color-bbq-cream: #FFF8E1;
+  --color-bbq-gray: #9E9E9E;
+
+  /* Dark Mode Variants */
+  --color-dark-bg: #1A1A1A;
+  --color-dark-text: #F5F5F5;
+  --color-dark-border: #3D3D3D;
+
+  /* Legacy aliases for backwards compatibility */
+  --color-smoky-charcoal: var(--color-bbq-charcoal);
+  --color-fire-red: var(--color-bbq-fire);
+  --color-sunset-orange: var(--color-bbq-orange);
+  --color-golden-amber: var(--color-bbq-amber);
+  --color-hickory-brown: var(--color-bbq-brown);
+  --color-fresh-herb-green: var(--color-bbq-green);
+  --color-cream: var(--color-bbq-cream);
+  --color-smoke-gray: var(--color-bbq-gray);
+
+  /* Semantic Color Mappings */
+  --color-primary: var(--color-bbq-fire);
+  --color-primary-hover: var(--color-bbq-fire-dark);
+  --color-secondary: var(--color-bbq-orange);
+  --color-secondary-hover: var(--color-bbq-orange-dark);
+  --color-accent: var(--color-bbq-amber);
+  --color-success: var(--color-bbq-green);
+  --color-text-primary: var(--color-bbq-charcoal);
+  --color-text-secondary: var(--color-bbq-brown);
+  --color-text-muted: var(--color-bbq-gray);
+  --color-background-light: var(--color-bbq-cream);
+  --color-border: var(--color-bbq-brown);
+}
+
+/* Base Typography Styles */
+@layer base {
+  body {
+    color: var(--color-text-primary);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+  }
+
+  /* Link Styles */
+  a {
+    color: var(--color-primary);
+    transition: color 0.2s ease;
+  }
+
+  a:hover {
+    color: var(--color-primary-hover);
+  }
+}
+
+/* Background Utility Classes */
+.bg-bbq-light {
+  background-color: var(--color-background-light);
+}
+
+.bg-bbq-cream {
+  background-color: var(--color-cream);
+}
+
+/* Border Utility Classes */
+.border-bbq {
+  border-color: var(--color-border);
+}
+
+/* Button Base Styles */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(211, 47, 47, 0.2);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-secondary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(255, 111, 0, 0.2);
+}
+
+/* Card Styles */
+.card-bbq {
+  background-color: white;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.card-bbq:hover {
+  box-shadow: 0 10px 25px rgba(109, 76, 65, 0.15);
+  transform: translateY(-2px);
+}

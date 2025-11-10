@@ -45,7 +45,7 @@ export default function Contact({ settings }) {
 
   return (
     <Container>
-      <h1 className="mt-2 mb-3 text-3xl font-semibold tracking-tight text-center lg:leading-snug text-brand-primary lg:text-4xl dark:text-white">
+      <h1 className="mt-2 mb-3 text-3xl font-semibold tracking-tight text-center lg:leading-snug text-[#2D2D2D] lg:text-4xl dark:text-white">
         Contact
       </h1>
       <div className="text-center">

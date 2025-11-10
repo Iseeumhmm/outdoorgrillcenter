@@ -22,7 +22,7 @@ export default async function SearchPage({ query }) {
   return (
     <Container>
       <div className="mx-auto max-w-screen-md">
-        <h1 className="text-brand-primary mb-5 text-center text-3xl font-semibold tracking-tight dark:text-white lg:text-4xl lg:leading-snug">
+        <h1 className="text-[#2D2D2D] mb-5 text-center text-3xl font-semibold tracking-tight dark:text-white lg:text-4xl lg:leading-snug">
           Search
         </h1>
         <form action="/search" method="GET" className="mx-auto max-w-lg">

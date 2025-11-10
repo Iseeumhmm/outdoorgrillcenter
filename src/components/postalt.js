@@ -73,7 +73,7 @@ export default function PostAlt({
 
           <h2
             className={cx(
-              "mt-2 text-xl font-semibold tracking-normal line-clamp-2 text-brand-primary dark:text-white",
+              "mt-2 text-xl font-semibold tracking-normal line-clamp-2 text-[#2D2D2D] dark:text-white",
               featured ? "lg:text-3xl" : "lg:text-2xl"
             )}>
             <Link href={`/post/minimal/${post.slug}`}>

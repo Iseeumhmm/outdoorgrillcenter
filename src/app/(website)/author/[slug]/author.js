@@ -34,7 +34,7 @@ export default async function AuthorPage({ author }) {
               />
             </div>
           )}
-          <h1 className="text-brand-primary text-center text-3xl font-semibold tracking-tight dark:text-white lg:text-4xl lg:leading-snug">
+          <h1 className="text-[#2D2D2D] text-center text-3xl font-semibold tracking-tight dark:text-white lg:text-4xl lg:leading-snug">
             {author.name}
           </h1>
           {author.bio && (

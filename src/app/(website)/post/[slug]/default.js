@@ -34,7 +34,7 @@ export default function Post(props) {
             <CategoryLabel categories={post.categories} />
           </div>
 
-          <h1 className="text-brand-primary mb-3 mt-2 text-center text-3xl font-semibold tracking-tight dark:text-white lg:text-4xl lg:leading-snug">
+          <h1 className="text-[#2D2D2D] mb-3 mt-2 text-center text-3xl font-semibold tracking-tight dark:text-white lg:text-4xl lg:leading-snug">
             {post.title}
           </h1>
 
@@ -97,7 +97,7 @@ export default function Post(props) {
           <div className="mb-7 mt-7 flex justify-center">
             <Link
               href="/"
-              className="bg-brand-secondary/20 rounded-full px-5 py-2 text-sm text-blue-600 dark:text-blue-500 ">
+              className="bg-[#FF6F00]/20 rounded-full px-5 py-2 text-sm text-blue-600 dark:text-blue-500 ">
               ← View all posts
             </Link>
           </div>

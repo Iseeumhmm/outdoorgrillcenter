@@ -323,6 +323,150 @@ export async function getRelatedReviews(
   }
 }
 
+/**
+ * Get reviews filtered by product type
+ * @param productType - Product type slug (e.g., 'pellet-grill', 'gas-grill')
+ * @param limit - Maximum number of reviews to return (default: 100)
+ * @returns Array of reviews matching the product type
+ */
+export async function getReviewsByProductType(productType: string, limit: number = 100) {
+  try {
+    const payload = await getPayloadHMR({ config: configPromise })
+
+    const { docs: reviews } = await payload.find({
+      collection: 'reviews',
+      depth: 2,
+      limit,
+      sort: '-publishedAt',
+      where: {
+        and: [
+          {
+            publishedAt: {
+              exists: true,
+            },
+          },
+          {
+            productType: {
+              equals: productType,
+            },
+          },
+        ],
+      },
+    })
+
+    return reviews
+  } catch (error) {
+    console.warn('Failed to fetch reviews by product type:', error instanceof Error ? error.message : 'Unknown error')
+    return []
+  }
+}
+
+/**
+ * Get reviews filtered by brand
+ * @param brand - Product brand name
+ * @param limit - Maximum number of reviews to return (default: 100)
+ * @returns Array of reviews matching the brand
+ */
+export async function getReviewsByBrand(brand: string, limit: number = 100) {
+  try {
+    const payload = await getPayloadHMR({ config: configPromise })
+
+    const { docs: reviews } = await payload.find({
+      collection: 'reviews',
+      depth: 2,
+      limit,
+      sort: '-publishedAt',
+      where: {
+        and: [
+          {
+            publishedAt: {
+              exists: true,
+            },
+          },
+          {
+            productBrand: {
+              equals: brand,
+            },
+          },
+        ],
+      },
+    })
+
+    return reviews
+  } catch (error) {
+    console.warn('Failed to fetch reviews by brand:', error instanceof Error ? error.message : 'Unknown error')
+    return []
+  }
+}
+
+/**
+ * Get top-rated reviews
+ * @param limit - Maximum number of reviews to return (default: 10)
+ * @returns Array of reviews sorted by rating (highest first)
+ */
+export async function getTopRatedReviews(limit: number = 10) {
+  try {
+    const payload = await getPayloadHMR({ config: configPromise })
+
+    const { docs: reviews } = await payload.find({
+      collection: 'reviews',
+      depth: 2,
+      limit,
+      sort: '-rating',
+      where: {
+        publishedAt: {
+          exists: true,
+        },
+      },
+    })
+
+    return reviews
+  } catch (error) {
+    console.warn('Failed to fetch top-rated reviews:', error instanceof Error ? error.message : 'Unknown error')
+    return []
+  }
+}
+
+/**
+ * Get all unique product types that have published reviews
+ * @returns Array of product type strings
+ */
+export async function getAvailableProductTypes() {
+  try {
+    const payload = await getPayloadHMR({ config: configPromise })
+
+    const { docs: reviews } = await payload.find({
+      collection: 'reviews',
+      depth: 0,
+      limit: 1000,
+      select: {
+        productType: true,
+      },
+      where: {
+        and: [
+          {
+            publishedAt: {
+              exists: true,
+            },
+          },
+          {
+            productType: {
+              exists: true,
+            },
+          },
+        ],
+      },
+    })
+
+    // Get unique product types
+    const uniqueTypes = [...new Set(reviews.map((review) => review.productType).filter(Boolean))]
+    return uniqueTypes
+  } catch (error) {
+    console.warn('Failed to fetch available product types:', error instanceof Error ? error.message : 'Unknown error')
+    return []
+  }
+}
+
 // Legacy aliases for backward compatibility
 export const getAllPosts = getAllReviews
 export const getPaginatedPosts = getPaginatedReviews
