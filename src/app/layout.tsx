@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import { Providers } from "@/components/providers";
 
 export const metadata: Metadata = {
   title: "Outdoor Grill Center",
@@ -13,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
