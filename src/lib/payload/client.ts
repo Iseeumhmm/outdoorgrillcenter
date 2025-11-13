@@ -1,6 +1,6 @@
 import 'server-only'
 
-import { getPayloadHMR } from '@payloadcms/next/utilities'
+import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import type { Review, Author, Category, Media, Setting } from '@/payload-types'
 
@@ -11,7 +11,7 @@ import type { Review, Author, Category, Media, Setting } from '@/payload-types'
  */
 export async function getAllReviews(limit: number = 100) {
   try {
-    const payload = await getPayloadHMR({ config: configPromise })
+    const payload = await getPayload({ config: configPromise })
 
     const { docs: reviews } = await payload.find({
       collection: 'reviews',
@@ -46,7 +46,7 @@ export async function getPaginatedReviews({
   limit?: number
 }) {
   try {
-    const payload = await getPayloadHMR({ config: configPromise })
+    const payload = await getPayload({ config: configPromise })
 
     const result = await payload.find({
       collection: 'reviews',
@@ -89,7 +89,7 @@ export async function getPaginatedReviews({
  */
 export async function getReviewBySlug(slug: string) {
   try {
-    const payload = await getPayloadHMR({ config: configPromise })
+    const payload = await getPayload({ config: configPromise })
 
     const { docs } = await payload.find({
       collection: 'reviews',
@@ -114,7 +114,7 @@ export async function getReviewBySlug(slug: string) {
  * @returns Array of objects with slug property
  */
 export async function getAllReviewsSlugs() {
-  const payload = await getPayloadHMR({ config: configPromise })
+  const payload = await getPayload({ config: configPromise })
 
   const { docs } = await payload.find({
     collection: 'reviews',
@@ -134,7 +134,7 @@ export async function getAllReviewsSlugs() {
  */
 export async function getAllAuthors() {
   try {
-    const payload = await getPayloadHMR({ config: configPromise })
+    const payload = await getPayload({ config: configPromise })
 
     const { docs: authors } = await payload.find({
       collection: 'authors',
@@ -157,7 +157,7 @@ export async function getAllAuthors() {
  */
 export async function getAuthorBySlug(slug: string) {
   try {
-    const payload = await getPayloadHMR({ config: configPromise })
+    const payload = await getPayload({ config: configPromise })
 
     const { docs } = await payload.find({
       collection: 'authors',
@@ -183,7 +183,7 @@ export async function getAuthorBySlug(slug: string) {
  */
 export async function getAllCategories() {
   try {
-    const payload = await getPayloadHMR({ config: configPromise })
+    const payload = await getPayload({ config: configPromise })
 
     const { docs: categories } = await payload.find({
       collection: 'categories',
@@ -227,7 +227,7 @@ export async function getAllCategories() {
  */
 export async function getCategoryBySlug(slug: string) {
   try {
-    const payload = await getPayloadHMR({ config: configPromise })
+    const payload = await getPayload({ config: configPromise })
 
     const { docs } = await payload.find({
       collection: 'categories',
@@ -253,7 +253,7 @@ export async function getCategoryBySlug(slug: string) {
  */
 export async function getSettings() {
   try {
-    const payload = await getPayloadHMR({ config: configPromise })
+    const payload = await getPayload({ config: configPromise })
 
     const settings = await payload.findGlobal({
       slug: 'settings',
@@ -287,7 +287,7 @@ export async function getRelatedReviews(
   limit: number = 3,
 ) {
   try {
-    const payload = await getPayloadHMR({ config: configPromise })
+    const payload = await getPayload({ config: configPromise })
 
     // Extract category IDs if objects are passed
     const categoryIds = categories.map((cat) => (typeof cat === 'string' ? cat : cat.id))
@@ -331,7 +331,7 @@ export async function getRelatedReviews(
  */
 export async function getReviewsByProductType(productType: string, limit: number = 100) {
   try {
-    const payload = await getPayloadHMR({ config: configPromise })
+    const payload = await getPayload({ config: configPromise })
 
     const { docs: reviews } = await payload.find({
       collection: 'reviews',
@@ -369,7 +369,7 @@ export async function getReviewsByProductType(productType: string, limit: number
  */
 export async function getReviewsByBrand(brand: string, limit: number = 100) {
   try {
-    const payload = await getPayloadHMR({ config: configPromise })
+    const payload = await getPayload({ config: configPromise })
 
     const { docs: reviews } = await payload.find({
       collection: 'reviews',
@@ -406,7 +406,7 @@ export async function getReviewsByBrand(brand: string, limit: number = 100) {
  */
 export async function getTopRatedReviews(limit: number = 10) {
   try {
-    const payload = await getPayloadHMR({ config: configPromise })
+    const payload = await getPayload({ config: configPromise })
 
     const { docs: reviews } = await payload.find({
       collection: 'reviews',
@@ -433,7 +433,7 @@ export async function getTopRatedReviews(limit: number = 10) {
  */
 export async function getAvailableProductTypes() {
   try {
-    const payload = await getPayloadHMR({ config: configPromise })
+    const payload = await getPayload({ config: configPromise })
 
     const { docs: reviews } = await payload.find({
       collection: 'reviews',

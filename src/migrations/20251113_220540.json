@@ -313,8 +313,142 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
-    "posts": {
-      "name": "posts",
+    "reviews_pros_and_cons_pros": {
+      "name": "reviews_pros_and_cons_pros",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "item": {
+          "name": "item",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "reviews_pros_and_cons_pros_order_idx": {
+          "name": "reviews_pros_and_cons_pros_order_idx",
+          "columns": [
+            "_order"
+          ],
+          "isUnique": false
+        },
+        "reviews_pros_and_cons_pros_parent_id_idx": {
+          "name": "reviews_pros_and_cons_pros_parent_id_idx",
+          "columns": [
+            "_parent_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "reviews_pros_and_cons_pros_parent_id_fk": {
+          "name": "reviews_pros_and_cons_pros_parent_id_fk",
+          "tableFrom": "reviews_pros_and_cons_pros",
+          "tableTo": "reviews",
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "reviews_pros_and_cons_cons": {
+      "name": "reviews_pros_and_cons_cons",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "item": {
+          "name": "item",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "reviews_pros_and_cons_cons_order_idx": {
+          "name": "reviews_pros_and_cons_cons_order_idx",
+          "columns": [
+            "_order"
+          ],
+          "isUnique": false
+        },
+        "reviews_pros_and_cons_cons_parent_id_idx": {
+          "name": "reviews_pros_and_cons_cons_parent_id_idx",
+          "columns": [
+            "_parent_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "reviews_pros_and_cons_cons_parent_id_fk": {
+          "name": "reviews_pros_and_cons_cons_parent_id_fk",
+          "tableFrom": "reviews_pros_and_cons_cons",
+          "tableTo": "reviews",
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "reviews": {
+      "name": "reviews",
       "columns": {
         "id": {
           "name": "id",
@@ -327,21 +461,21 @@
           "name": "title",
           "type": "text",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
         "slug": {
           "name": "slug",
           "type": "text",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
         "main_image_id": {
           "name": "main_image_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
         "excerpt": {
@@ -355,14 +489,63 @@
           "name": "body",
           "type": "text",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "rating": {
+          "name": "rating",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "product_name": {
+          "name": "product_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "product_brand": {
+          "name": "product_brand",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "product_model": {
+          "name": "product_model",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "amazon_a_s_i_n": {
+          "name": "amazon_a_s_i_n",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "product_price": {
+          "name": "product_price",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "product_type": {
+          "name": "product_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         },
         "author_id": {
           "name": "author_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
         "published_at": {
@@ -403,49 +586,64 @@
           "notNull": true,
           "autoincrement": false,
           "default": "(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))"
+        },
+        "_status": {
+          "name": "_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'draft'"
         }
       },
       "indexes": {
-        "posts_slug_idx": {
-          "name": "posts_slug_idx",
+        "reviews_slug_idx": {
+          "name": "reviews_slug_idx",
           "columns": [
             "slug"
           ],
           "isUnique": true
         },
-        "posts_main_image_idx": {
-          "name": "posts_main_image_idx",
+        "reviews_main_image_idx": {
+          "name": "reviews_main_image_idx",
           "columns": [
             "main_image_id"
           ],
           "isUnique": false
         },
-        "posts_author_idx": {
-          "name": "posts_author_idx",
+        "reviews_author_idx": {
+          "name": "reviews_author_idx",
           "columns": [
             "author_id"
           ],
           "isUnique": false
         },
-        "posts_updated_at_idx": {
-          "name": "posts_updated_at_idx",
+        "reviews_updated_at_idx": {
+          "name": "reviews_updated_at_idx",
           "columns": [
             "updated_at"
           ],
           "isUnique": false
         },
-        "posts_created_at_idx": {
-          "name": "posts_created_at_idx",
+        "reviews_created_at_idx": {
+          "name": "reviews_created_at_idx",
           "columns": [
             "created_at"
+          ],
+          "isUnique": false
+        },
+        "reviews__status_idx": {
+          "name": "reviews__status_idx",
+          "columns": [
+            "_status"
           ],
           "isUnique": false
         }
       },
       "foreignKeys": {
-        "posts_main_image_id_media_id_fk": {
-          "name": "posts_main_image_id_media_id_fk",
-          "tableFrom": "posts",
+        "reviews_main_image_id_media_id_fk": {
+          "name": "reviews_main_image_id_media_id_fk",
+          "tableFrom": "reviews",
           "tableTo": "media",
           "columnsFrom": [
             "main_image_id"
@@ -456,9 +654,9 @@
           "onDelete": "set null",
           "onUpdate": "no action"
         },
-        "posts_author_id_authors_id_fk": {
-          "name": "posts_author_id_authors_id_fk",
-          "tableFrom": "posts",
+        "reviews_author_id_authors_id_fk": {
+          "name": "reviews_author_id_authors_id_fk",
+          "tableFrom": "reviews",
           "tableTo": "authors",
           "columnsFrom": [
             "author_id"
@@ -474,8 +672,8 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
-    "posts_rels": {
-      "name": "posts_rels",
+    "reviews_rels": {
+      "name": "reviews_rels",
       "columns": {
         "id": {
           "name": "id",
@@ -514,29 +712,29 @@
         }
       },
       "indexes": {
-        "posts_rels_order_idx": {
-          "name": "posts_rels_order_idx",
+        "reviews_rels_order_idx": {
+          "name": "reviews_rels_order_idx",
           "columns": [
             "order"
           ],
           "isUnique": false
         },
-        "posts_rels_parent_idx": {
-          "name": "posts_rels_parent_idx",
+        "reviews_rels_parent_idx": {
+          "name": "reviews_rels_parent_idx",
           "columns": [
             "parent_id"
           ],
           "isUnique": false
         },
-        "posts_rels_path_idx": {
-          "name": "posts_rels_path_idx",
+        "reviews_rels_path_idx": {
+          "name": "reviews_rels_path_idx",
           "columns": [
             "path"
           ],
           "isUnique": false
         },
-        "posts_rels_categories_id_idx": {
-          "name": "posts_rels_categories_id_idx",
+        "reviews_rels_categories_id_idx": {
+          "name": "reviews_rels_categories_id_idx",
           "columns": [
             "categories_id"
           ],
@@ -544,10 +742,10 @@
         }
       },
       "foreignKeys": {
-        "posts_rels_parent_fk": {
-          "name": "posts_rels_parent_fk",
-          "tableFrom": "posts_rels",
-          "tableTo": "posts",
+        "reviews_rels_parent_fk": {
+          "name": "reviews_rels_parent_fk",
+          "tableFrom": "reviews_rels",
+          "tableTo": "reviews",
           "columnsFrom": [
             "parent_id"
           ],
@@ -557,9 +755,552 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "posts_rels_categories_fk": {
-          "name": "posts_rels_categories_fk",
-          "tableFrom": "posts_rels",
+        "reviews_rels_categories_fk": {
+          "name": "reviews_rels_categories_fk",
+          "tableFrom": "reviews_rels",
+          "tableTo": "categories",
+          "columnsFrom": [
+            "categories_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "_reviews_v_version_pros_and_cons_pros": {
+      "name": "_reviews_v_version_pros_and_cons_pros",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "item": {
+          "name": "item",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "_uuid": {
+          "name": "_uuid",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "_reviews_v_version_pros_and_cons_pros_order_idx": {
+          "name": "_reviews_v_version_pros_and_cons_pros_order_idx",
+          "columns": [
+            "_order"
+          ],
+          "isUnique": false
+        },
+        "_reviews_v_version_pros_and_cons_pros_parent_id_idx": {
+          "name": "_reviews_v_version_pros_and_cons_pros_parent_id_idx",
+          "columns": [
+            "_parent_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "_reviews_v_version_pros_and_cons_pros_parent_id_fk": {
+          "name": "_reviews_v_version_pros_and_cons_pros_parent_id_fk",
+          "tableFrom": "_reviews_v_version_pros_and_cons_pros",
+          "tableTo": "_reviews_v",
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "_reviews_v_version_pros_and_cons_cons": {
+      "name": "_reviews_v_version_pros_and_cons_cons",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "item": {
+          "name": "item",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "_uuid": {
+          "name": "_uuid",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "_reviews_v_version_pros_and_cons_cons_order_idx": {
+          "name": "_reviews_v_version_pros_and_cons_cons_order_idx",
+          "columns": [
+            "_order"
+          ],
+          "isUnique": false
+        },
+        "_reviews_v_version_pros_and_cons_cons_parent_id_idx": {
+          "name": "_reviews_v_version_pros_and_cons_cons_parent_id_idx",
+          "columns": [
+            "_parent_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "_reviews_v_version_pros_and_cons_cons_parent_id_fk": {
+          "name": "_reviews_v_version_pros_and_cons_cons_parent_id_fk",
+          "tableFrom": "_reviews_v_version_pros_and_cons_cons",
+          "tableTo": "_reviews_v",
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "_reviews_v": {
+      "name": "_reviews_v",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "parent_id": {
+          "name": "parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_title": {
+          "name": "version_title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_slug": {
+          "name": "version_slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_main_image_id": {
+          "name": "version_main_image_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_excerpt": {
+          "name": "version_excerpt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_body": {
+          "name": "version_body",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_rating": {
+          "name": "version_rating",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_product_name": {
+          "name": "version_product_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_product_brand": {
+          "name": "version_product_brand",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_product_model": {
+          "name": "version_product_model",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_amazon_a_s_i_n": {
+          "name": "version_amazon_a_s_i_n",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_product_price": {
+          "name": "version_product_price",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_product_type": {
+          "name": "version_product_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_author_id": {
+          "name": "version_author_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_published_at": {
+          "name": "version_published_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_est_reading_time": {
+          "name": "version_est_reading_time",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": 5
+        },
+        "version_featured": {
+          "name": "version_featured",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
+        },
+        "version_updated_at": {
+          "name": "version_updated_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_created_at": {
+          "name": "version_created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version__status": {
+          "name": "version__status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'draft'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))"
+        },
+        "latest": {
+          "name": "latest",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "_reviews_v_parent_idx": {
+          "name": "_reviews_v_parent_idx",
+          "columns": [
+            "parent_id"
+          ],
+          "isUnique": false
+        },
+        "_reviews_v_version_version_slug_idx": {
+          "name": "_reviews_v_version_version_slug_idx",
+          "columns": [
+            "version_slug"
+          ],
+          "isUnique": false
+        },
+        "_reviews_v_version_version_main_image_idx": {
+          "name": "_reviews_v_version_version_main_image_idx",
+          "columns": [
+            "version_main_image_id"
+          ],
+          "isUnique": false
+        },
+        "_reviews_v_version_version_author_idx": {
+          "name": "_reviews_v_version_version_author_idx",
+          "columns": [
+            "version_author_id"
+          ],
+          "isUnique": false
+        },
+        "_reviews_v_version_version_updated_at_idx": {
+          "name": "_reviews_v_version_version_updated_at_idx",
+          "columns": [
+            "version_updated_at"
+          ],
+          "isUnique": false
+        },
+        "_reviews_v_version_version_created_at_idx": {
+          "name": "_reviews_v_version_version_created_at_idx",
+          "columns": [
+            "version_created_at"
+          ],
+          "isUnique": false
+        },
+        "_reviews_v_version_version__status_idx": {
+          "name": "_reviews_v_version_version__status_idx",
+          "columns": [
+            "version__status"
+          ],
+          "isUnique": false
+        },
+        "_reviews_v_created_at_idx": {
+          "name": "_reviews_v_created_at_idx",
+          "columns": [
+            "created_at"
+          ],
+          "isUnique": false
+        },
+        "_reviews_v_updated_at_idx": {
+          "name": "_reviews_v_updated_at_idx",
+          "columns": [
+            "updated_at"
+          ],
+          "isUnique": false
+        },
+        "_reviews_v_latest_idx": {
+          "name": "_reviews_v_latest_idx",
+          "columns": [
+            "latest"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "_reviews_v_parent_id_reviews_id_fk": {
+          "name": "_reviews_v_parent_id_reviews_id_fk",
+          "tableFrom": "_reviews_v",
+          "tableTo": "reviews",
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "_reviews_v_version_main_image_id_media_id_fk": {
+          "name": "_reviews_v_version_main_image_id_media_id_fk",
+          "tableFrom": "_reviews_v",
+          "tableTo": "media",
+          "columnsFrom": [
+            "version_main_image_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "_reviews_v_version_author_id_authors_id_fk": {
+          "name": "_reviews_v_version_author_id_authors_id_fk",
+          "tableFrom": "_reviews_v",
+          "tableTo": "authors",
+          "columnsFrom": [
+            "version_author_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "_reviews_v_rels": {
+      "name": "_reviews_v_rels",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "parent_id": {
+          "name": "parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "path": {
+          "name": "path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "categories_id": {
+          "name": "categories_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "_reviews_v_rels_order_idx": {
+          "name": "_reviews_v_rels_order_idx",
+          "columns": [
+            "order"
+          ],
+          "isUnique": false
+        },
+        "_reviews_v_rels_parent_idx": {
+          "name": "_reviews_v_rels_parent_idx",
+          "columns": [
+            "parent_id"
+          ],
+          "isUnique": false
+        },
+        "_reviews_v_rels_path_idx": {
+          "name": "_reviews_v_rels_path_idx",
+          "columns": [
+            "path"
+          ],
+          "isUnique": false
+        },
+        "_reviews_v_rels_categories_id_idx": {
+          "name": "_reviews_v_rels_categories_id_idx",
+          "columns": [
+            "categories_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "_reviews_v_rels_parent_fk": {
+          "name": "_reviews_v_rels_parent_fk",
+          "tableFrom": "_reviews_v_rels",
+          "tableTo": "_reviews_v",
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "_reviews_v_rels_categories_fk": {
+          "name": "_reviews_v_rels_categories_fk",
+          "tableFrom": "_reviews_v_rels",
           "tableTo": "categories",
           "columnsFrom": [
             "categories_id"
@@ -916,8 +1657,8 @@
           "notNull": false,
           "autoincrement": false
         },
-        "posts_id": {
-          "name": "posts_id",
+        "reviews_id": {
+          "name": "reviews_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
@@ -974,10 +1715,10 @@
           ],
           "isUnique": false
         },
-        "payload_locked_documents_rels_posts_id_idx": {
-          "name": "payload_locked_documents_rels_posts_id_idx",
+        "payload_locked_documents_rels_reviews_id_idx": {
+          "name": "payload_locked_documents_rels_reviews_id_idx",
           "columns": [
-            "posts_id"
+            "reviews_id"
           ],
           "isUnique": false
         },
@@ -1036,12 +1777,12 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "payload_locked_documents_rels_posts_fk": {
-          "name": "payload_locked_documents_rels_posts_fk",
+        "payload_locked_documents_rels_reviews_fk": {
+          "name": "payload_locked_documents_rels_reviews_fk",
           "tableFrom": "payload_locked_documents_rels",
-          "tableTo": "posts",
+          "tableTo": "reviews",
           "columnsFrom": [
-            "posts_id"
+            "reviews_id"
           ],
           "columnsTo": [
             "id"
@@ -1487,6 +2228,6 @@
   "internal": {
     "indexes": {}
   },
-  "id": "ca4c4739-37ec-46df-bfd0-20de9e4f8f33",
+  "id": "f5d7458b-a3f7-49ec-b15c-b01e6b622164",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

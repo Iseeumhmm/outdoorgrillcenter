@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation'
 import Container from '@/components/container'
-import { RichText } from '@/lib/payload/RichTextRenderer'
 import AuthorCard from '@/components/blog/authorCard'
 import Link from 'next/link'
 
@@ -10,6 +9,7 @@ import ReviewQuickInfo from '@/components/review/ReviewQuickInfo'
 import ProsConsList from '@/components/review/ProsConsList'
 import ProductSpecs from '@/components/review/ProductSpecs'
 import AmazonCTA from '@/components/review/AmazonCTA'
+import ReviewBody from '@/components/review/ReviewBody'
 
 // Schema.org structured data
 import { generateReviewSchema, generateBreadcrumbSchema } from '@/lib/seo/reviewSchema'
@@ -78,9 +78,7 @@ export default async function ReviewPage({ review }) {
             <h2 className="mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
               Detailed Review
             </h2>
-            <div className="prose prose-lg mx-auto dark:prose-invert dark:text-white">
-              {review.body && <RichText value={review.body} />}
-            </div>
+            <ReviewBody review={review} />
           </div>
 
           {/* Product Specifications */}

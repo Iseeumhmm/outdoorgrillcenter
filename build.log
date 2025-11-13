@@ -1,0 +1,46 @@
+
+> outdoorgrillcenter@1.0.0 build /Users/rickheffren/websites/outdoorgrillcenter.com
+> cross-env NODE_OPTIONS="--no-deprecation --max-old-space-size=8000" next build
+
+   ▲ Next.js 15.4.4
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 8.0s
+   Linting and checking validity of types ...
+ ⨯ ESLint: Cannot find package '@eslint/eslintrc' imported from /Users/rickheffren/websites/outdoorgrillcenter.com/eslint.config.mjs Did you mean to import "@eslint/eslintrc/dist/eslintrc.cjs"?
+   Collecting page data ...
+   Generating static pages (0/13) ...
+   Generating static pages (3/13) 
+   Generating static pages (6/13) 
+   Generating static pages (9/13) 
+ ✓ Generating static pages (13/13)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                      188 B         110 kB
+├ ○ /_not-found                            998 B         102 kB
+├ ƒ /admin/[[...segments]]                 374 B         694 kB
+├ ƒ /api/[...slug]                         177 B         101 kB
+├ ƒ /api/graphql                           127 B         101 kB
+├ ƒ /api/graphql-playground                177 B         101 kB
+├ ƒ /category/[slug]                       188 B         110 kB
+├ ƒ /reviews                             1.09 kB         111 kB
+├ ● /reviews/[slug]                      3.78 kB         114 kB
+├ ● /reviews/type/[productType]            188 B         110 kB
+├   ├ /reviews/type/portable
+├   ├ /reviews/type/electric-smoker
+├   ├ /reviews/type/gas-grill
+├   └ [+2 more paths]
+└ ƒ /search                                188 B         110 kB
++ First Load JS shared by all             101 kB
+  ├ chunks/722-73f1580efb00d5bf.js       43.9 kB
+  ├ chunks/d01fe480-b38dfe6b5454663f.js  54.1 kB
+  └ other shared chunks (total)          3.29 kB
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

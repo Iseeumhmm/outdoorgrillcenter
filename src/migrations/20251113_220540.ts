@@ -48,42 +48,147 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE INDEX \`media_updated_at_idx\` ON \`media\` (\`updated_at\`);`)
   await db.run(sql`CREATE INDEX \`media_created_at_idx\` ON \`media\` (\`created_at\`);`)
   await db.run(sql`CREATE UNIQUE INDEX \`media_filename_idx\` ON \`media\` (\`filename\`);`)
-  await db.run(sql`CREATE TABLE \`posts\` (
+  await db.run(sql`CREATE TABLE \`reviews_pros_and_cons_pros\` (
+  	\`_order\` integer NOT NULL,
+  	\`_parent_id\` integer NOT NULL,
+  	\`id\` text PRIMARY KEY NOT NULL,
+  	\`item\` text,
+  	FOREIGN KEY (\`_parent_id\`) REFERENCES \`reviews\`(\`id\`) ON UPDATE no action ON DELETE cascade
+  );
+  `)
+  await db.run(sql`CREATE INDEX \`reviews_pros_and_cons_pros_order_idx\` ON \`reviews_pros_and_cons_pros\` (\`_order\`);`)
+  await db.run(sql`CREATE INDEX \`reviews_pros_and_cons_pros_parent_id_idx\` ON \`reviews_pros_and_cons_pros\` (\`_parent_id\`);`)
+  await db.run(sql`CREATE TABLE \`reviews_pros_and_cons_cons\` (
+  	\`_order\` integer NOT NULL,
+  	\`_parent_id\` integer NOT NULL,
+  	\`id\` text PRIMARY KEY NOT NULL,
+  	\`item\` text,
+  	FOREIGN KEY (\`_parent_id\`) REFERENCES \`reviews\`(\`id\`) ON UPDATE no action ON DELETE cascade
+  );
+  `)
+  await db.run(sql`CREATE INDEX \`reviews_pros_and_cons_cons_order_idx\` ON \`reviews_pros_and_cons_cons\` (\`_order\`);`)
+  await db.run(sql`CREATE INDEX \`reviews_pros_and_cons_cons_parent_id_idx\` ON \`reviews_pros_and_cons_cons\` (\`_parent_id\`);`)
+  await db.run(sql`CREATE TABLE \`reviews\` (
   	\`id\` integer PRIMARY KEY NOT NULL,
-  	\`title\` text NOT NULL,
-  	\`slug\` text NOT NULL,
-  	\`main_image_id\` integer NOT NULL,
+  	\`title\` text,
+  	\`slug\` text,
+  	\`main_image_id\` integer,
   	\`excerpt\` text,
-  	\`body\` text NOT NULL,
-  	\`author_id\` integer NOT NULL,
+  	\`body\` text,
+  	\`rating\` numeric,
+  	\`product_name\` text,
+  	\`product_brand\` text,
+  	\`product_model\` text,
+  	\`amazon_a_s_i_n\` text,
+  	\`product_price\` numeric,
+  	\`product_type\` text,
+  	\`author_id\` integer,
   	\`published_at\` text,
   	\`est_reading_time\` numeric DEFAULT 5,
   	\`featured\` integer DEFAULT false,
   	\`updated_at\` text DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')) NOT NULL,
   	\`created_at\` text DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')) NOT NULL,
+  	\`_status\` text DEFAULT 'draft',
   	FOREIGN KEY (\`main_image_id\`) REFERENCES \`media\`(\`id\`) ON UPDATE no action ON DELETE set null,
   	FOREIGN KEY (\`author_id\`) REFERENCES \`authors\`(\`id\`) ON UPDATE no action ON DELETE set null
   );
   `)
-  await db.run(sql`CREATE UNIQUE INDEX \`posts_slug_idx\` ON \`posts\` (\`slug\`);`)
-  await db.run(sql`CREATE INDEX \`posts_main_image_idx\` ON \`posts\` (\`main_image_id\`);`)
-  await db.run(sql`CREATE INDEX \`posts_author_idx\` ON \`posts\` (\`author_id\`);`)
-  await db.run(sql`CREATE INDEX \`posts_updated_at_idx\` ON \`posts\` (\`updated_at\`);`)
-  await db.run(sql`CREATE INDEX \`posts_created_at_idx\` ON \`posts\` (\`created_at\`);`)
-  await db.run(sql`CREATE TABLE \`posts_rels\` (
+  await db.run(sql`CREATE UNIQUE INDEX \`reviews_slug_idx\` ON \`reviews\` (\`slug\`);`)
+  await db.run(sql`CREATE INDEX \`reviews_main_image_idx\` ON \`reviews\` (\`main_image_id\`);`)
+  await db.run(sql`CREATE INDEX \`reviews_author_idx\` ON \`reviews\` (\`author_id\`);`)
+  await db.run(sql`CREATE INDEX \`reviews_updated_at_idx\` ON \`reviews\` (\`updated_at\`);`)
+  await db.run(sql`CREATE INDEX \`reviews_created_at_idx\` ON \`reviews\` (\`created_at\`);`)
+  await db.run(sql`CREATE INDEX \`reviews__status_idx\` ON \`reviews\` (\`_status\`);`)
+  await db.run(sql`CREATE TABLE \`reviews_rels\` (
   	\`id\` integer PRIMARY KEY NOT NULL,
   	\`order\` integer,
   	\`parent_id\` integer NOT NULL,
   	\`path\` text NOT NULL,
   	\`categories_id\` integer,
-  	FOREIGN KEY (\`parent_id\`) REFERENCES \`posts\`(\`id\`) ON UPDATE no action ON DELETE cascade,
+  	FOREIGN KEY (\`parent_id\`) REFERENCES \`reviews\`(\`id\`) ON UPDATE no action ON DELETE cascade,
   	FOREIGN KEY (\`categories_id\`) REFERENCES \`categories\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`posts_rels_order_idx\` ON \`posts_rels\` (\`order\`);`)
-  await db.run(sql`CREATE INDEX \`posts_rels_parent_idx\` ON \`posts_rels\` (\`parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`posts_rels_path_idx\` ON \`posts_rels\` (\`path\`);`)
-  await db.run(sql`CREATE INDEX \`posts_rels_categories_id_idx\` ON \`posts_rels\` (\`categories_id\`);`)
+  await db.run(sql`CREATE INDEX \`reviews_rels_order_idx\` ON \`reviews_rels\` (\`order\`);`)
+  await db.run(sql`CREATE INDEX \`reviews_rels_parent_idx\` ON \`reviews_rels\` (\`parent_id\`);`)
+  await db.run(sql`CREATE INDEX \`reviews_rels_path_idx\` ON \`reviews_rels\` (\`path\`);`)
+  await db.run(sql`CREATE INDEX \`reviews_rels_categories_id_idx\` ON \`reviews_rels\` (\`categories_id\`);`)
+  await db.run(sql`CREATE TABLE \`_reviews_v_version_pros_and_cons_pros\` (
+  	\`_order\` integer NOT NULL,
+  	\`_parent_id\` integer NOT NULL,
+  	\`id\` integer PRIMARY KEY NOT NULL,
+  	\`item\` text,
+  	\`_uuid\` text,
+  	FOREIGN KEY (\`_parent_id\`) REFERENCES \`_reviews_v\`(\`id\`) ON UPDATE no action ON DELETE cascade
+  );
+  `)
+  await db.run(sql`CREATE INDEX \`_reviews_v_version_pros_and_cons_pros_order_idx\` ON \`_reviews_v_version_pros_and_cons_pros\` (\`_order\`);`)
+  await db.run(sql`CREATE INDEX \`_reviews_v_version_pros_and_cons_pros_parent_id_idx\` ON \`_reviews_v_version_pros_and_cons_pros\` (\`_parent_id\`);`)
+  await db.run(sql`CREATE TABLE \`_reviews_v_version_pros_and_cons_cons\` (
+  	\`_order\` integer NOT NULL,
+  	\`_parent_id\` integer NOT NULL,
+  	\`id\` integer PRIMARY KEY NOT NULL,
+  	\`item\` text,
+  	\`_uuid\` text,
+  	FOREIGN KEY (\`_parent_id\`) REFERENCES \`_reviews_v\`(\`id\`) ON UPDATE no action ON DELETE cascade
+  );
+  `)
+  await db.run(sql`CREATE INDEX \`_reviews_v_version_pros_and_cons_cons_order_idx\` ON \`_reviews_v_version_pros_and_cons_cons\` (\`_order\`);`)
+  await db.run(sql`CREATE INDEX \`_reviews_v_version_pros_and_cons_cons_parent_id_idx\` ON \`_reviews_v_version_pros_and_cons_cons\` (\`_parent_id\`);`)
+  await db.run(sql`CREATE TABLE \`_reviews_v\` (
+  	\`id\` integer PRIMARY KEY NOT NULL,
+  	\`parent_id\` integer,
+  	\`version_title\` text,
+  	\`version_slug\` text,
+  	\`version_main_image_id\` integer,
+  	\`version_excerpt\` text,
+  	\`version_body\` text,
+  	\`version_rating\` numeric,
+  	\`version_product_name\` text,
+  	\`version_product_brand\` text,
+  	\`version_product_model\` text,
+  	\`version_amazon_a_s_i_n\` text,
+  	\`version_product_price\` numeric,
+  	\`version_product_type\` text,
+  	\`version_author_id\` integer,
+  	\`version_published_at\` text,
+  	\`version_est_reading_time\` numeric DEFAULT 5,
+  	\`version_featured\` integer DEFAULT false,
+  	\`version_updated_at\` text,
+  	\`version_created_at\` text,
+  	\`version__status\` text DEFAULT 'draft',
+  	\`created_at\` text DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')) NOT NULL,
+  	\`updated_at\` text DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')) NOT NULL,
+  	\`latest\` integer,
+  	FOREIGN KEY (\`parent_id\`) REFERENCES \`reviews\`(\`id\`) ON UPDATE no action ON DELETE set null,
+  	FOREIGN KEY (\`version_main_image_id\`) REFERENCES \`media\`(\`id\`) ON UPDATE no action ON DELETE set null,
+  	FOREIGN KEY (\`version_author_id\`) REFERENCES \`authors\`(\`id\`) ON UPDATE no action ON DELETE set null
+  );
+  `)
+  await db.run(sql`CREATE INDEX \`_reviews_v_parent_idx\` ON \`_reviews_v\` (\`parent_id\`);`)
+  await db.run(sql`CREATE INDEX \`_reviews_v_version_version_slug_idx\` ON \`_reviews_v\` (\`version_slug\`);`)
+  await db.run(sql`CREATE INDEX \`_reviews_v_version_version_main_image_idx\` ON \`_reviews_v\` (\`version_main_image_id\`);`)
+  await db.run(sql`CREATE INDEX \`_reviews_v_version_version_author_idx\` ON \`_reviews_v\` (\`version_author_id\`);`)
+  await db.run(sql`CREATE INDEX \`_reviews_v_version_version_updated_at_idx\` ON \`_reviews_v\` (\`version_updated_at\`);`)
+  await db.run(sql`CREATE INDEX \`_reviews_v_version_version_created_at_idx\` ON \`_reviews_v\` (\`version_created_at\`);`)
+  await db.run(sql`CREATE INDEX \`_reviews_v_version_version__status_idx\` ON \`_reviews_v\` (\`version__status\`);`)
+  await db.run(sql`CREATE INDEX \`_reviews_v_created_at_idx\` ON \`_reviews_v\` (\`created_at\`);`)
+  await db.run(sql`CREATE INDEX \`_reviews_v_updated_at_idx\` ON \`_reviews_v\` (\`updated_at\`);`)
+  await db.run(sql`CREATE INDEX \`_reviews_v_latest_idx\` ON \`_reviews_v\` (\`latest\`);`)
+  await db.run(sql`CREATE TABLE \`_reviews_v_rels\` (
+  	\`id\` integer PRIMARY KEY NOT NULL,
+  	\`order\` integer,
+  	\`parent_id\` integer NOT NULL,
+  	\`path\` text NOT NULL,
+  	\`categories_id\` integer,
+  	FOREIGN KEY (\`parent_id\`) REFERENCES \`_reviews_v\`(\`id\`) ON UPDATE no action ON DELETE cascade,
+  	FOREIGN KEY (\`categories_id\`) REFERENCES \`categories\`(\`id\`) ON UPDATE no action ON DELETE cascade
+  );
+  `)
+  await db.run(sql`CREATE INDEX \`_reviews_v_rels_order_idx\` ON \`_reviews_v_rels\` (\`order\`);`)
+  await db.run(sql`CREATE INDEX \`_reviews_v_rels_parent_idx\` ON \`_reviews_v_rels\` (\`parent_id\`);`)
+  await db.run(sql`CREATE INDEX \`_reviews_v_rels_path_idx\` ON \`_reviews_v_rels\` (\`path\`);`)
+  await db.run(sql`CREATE INDEX \`_reviews_v_rels_categories_id_idx\` ON \`_reviews_v_rels\` (\`categories_id\`);`)
   await db.run(sql`CREATE TABLE \`authors\` (
   	\`id\` integer PRIMARY KEY NOT NULL,
   	\`name\` text NOT NULL,
@@ -137,13 +242,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`path\` text NOT NULL,
   	\`users_id\` integer,
   	\`media_id\` integer,
-  	\`posts_id\` integer,
+  	\`reviews_id\` integer,
   	\`authors_id\` integer,
   	\`categories_id\` integer,
   	FOREIGN KEY (\`parent_id\`) REFERENCES \`payload_locked_documents\`(\`id\`) ON UPDATE no action ON DELETE cascade,
   	FOREIGN KEY (\`users_id\`) REFERENCES \`users\`(\`id\`) ON UPDATE no action ON DELETE cascade,
   	FOREIGN KEY (\`media_id\`) REFERENCES \`media\`(\`id\`) ON UPDATE no action ON DELETE cascade,
-  	FOREIGN KEY (\`posts_id\`) REFERENCES \`posts\`(\`id\`) ON UPDATE no action ON DELETE cascade,
+  	FOREIGN KEY (\`reviews_id\`) REFERENCES \`reviews\`(\`id\`) ON UPDATE no action ON DELETE cascade,
   	FOREIGN KEY (\`authors_id\`) REFERENCES \`authors\`(\`id\`) ON UPDATE no action ON DELETE cascade,
   	FOREIGN KEY (\`categories_id\`) REFERENCES \`categories\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
@@ -153,7 +258,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE INDEX \`payload_locked_documents_rels_path_idx\` ON \`payload_locked_documents_rels\` (\`path\`);`)
   await db.run(sql`CREATE INDEX \`payload_locked_documents_rels_users_id_idx\` ON \`payload_locked_documents_rels\` (\`users_id\`);`)
   await db.run(sql`CREATE INDEX \`payload_locked_documents_rels_media_id_idx\` ON \`payload_locked_documents_rels\` (\`media_id\`);`)
-  await db.run(sql`CREATE INDEX \`payload_locked_documents_rels_posts_id_idx\` ON \`payload_locked_documents_rels\` (\`posts_id\`);`)
+  await db.run(sql`CREATE INDEX \`payload_locked_documents_rels_reviews_id_idx\` ON \`payload_locked_documents_rels\` (\`reviews_id\`);`)
   await db.run(sql`CREATE INDEX \`payload_locked_documents_rels_authors_id_idx\` ON \`payload_locked_documents_rels\` (\`authors_id\`);`)
   await db.run(sql`CREATE INDEX \`payload_locked_documents_rels_categories_id_idx\` ON \`payload_locked_documents_rels\` (\`categories_id\`);`)
   await db.run(sql`CREATE TABLE \`payload_preferences\` (
@@ -219,8 +324,14 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   await db.run(sql`DROP TABLE \`users_sessions\`;`)
   await db.run(sql`DROP TABLE \`users\`;`)
   await db.run(sql`DROP TABLE \`media\`;`)
-  await db.run(sql`DROP TABLE \`posts\`;`)
-  await db.run(sql`DROP TABLE \`posts_rels\`;`)
+  await db.run(sql`DROP TABLE \`reviews_pros_and_cons_pros\`;`)
+  await db.run(sql`DROP TABLE \`reviews_pros_and_cons_cons\`;`)
+  await db.run(sql`DROP TABLE \`reviews\`;`)
+  await db.run(sql`DROP TABLE \`reviews_rels\`;`)
+  await db.run(sql`DROP TABLE \`_reviews_v_version_pros_and_cons_pros\`;`)
+  await db.run(sql`DROP TABLE \`_reviews_v_version_pros_and_cons_cons\`;`)
+  await db.run(sql`DROP TABLE \`_reviews_v\`;`)
+  await db.run(sql`DROP TABLE \`_reviews_v_rels\`;`)
   await db.run(sql`DROP TABLE \`authors\`;`)
   await db.run(sql`DROP TABLE \`categories\`;`)
   await db.run(sql`DROP TABLE \`payload_kv\`;`)

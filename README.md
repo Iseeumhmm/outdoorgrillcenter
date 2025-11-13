@@ -1,100 +1,236 @@
-# Payload Cloudflare Template
+# Outdoor Grill Center
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/payloadcms/payload/tree/main/templates/with-cloudflare-d1)
+A Next.js + Payload CMS application for BBQ grill and smoker reviews, deployed on Cloudflare Workers.
 
-**This can only be deployed on Paid Workers right now due to size limits.** This template comes configured with the bare minimum to get started on anything you need.
+## Features
 
-## Quick start
+- **Payload CMS 3.0** - Headless CMS for content management
+- **Cloudflare D1** - SQLite database at the edge
+- **Cloudflare R2** - Object storage for images
+- **Next.js 15** - React framework with App Router
+- **TypeScript** - Type-safe development
+- **Tailwind CSS** - Utility-first styling
 
-This template can be deployed directly to Cloudflare Workers by clicking the button to take you to the setup screen.
+## Quick Start
 
-From there you can connect your code to a git provider such Github or Gitlab, name your Workers, D1 Database and R2 Bucket as well as attach any additional environment variables or services you need.
+### Prerequisites
 
-## Quick Start - local setup
+- Node.js 18.20.2+ or 20.9.0+
+- pnpm 9 or 10
+- Cloudflare account
 
-To spin up this template locally, follow these steps:
+### Installation
 
-### Clone
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
 
-After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. Cloudflare will connect your app to a git provider such as Github and you can access your code from there.
+3. Set up environment variables:
+   ```bash
+   cp .env.example .env.local
+   # Edit .env.local and add your PAYLOAD_SECRET
+   ```
 
 ### Local Development
 
-## How it works
+#### Development Modes
 
-Out of the box, using [`Wrangler`](https://developers.cloudflare.com/workers/wrangler/) will automatically create local bindings for you to connect to the remote services and it can even create a local mock of the services you're using with Cloudflare.
+The application supports two development modes for flexibility:
 
-We've pre-configured Payload for you with the following:
+**Remote Mode** (Default - uses production services):
+```bash
+# .env.local
+USE_REMOTE_R2=true
+
+# Start dev server
+pnpm dev
+
+# Seed database
+pnpm seed
+```
+
+**Local Mode** (uses local simulations):
+```bash
+# .env.local
+USE_REMOTE_R2=false
+
+# Or use local commands (overrides .env.local)
+pnpm dev:local    # Local R2 + Local D1
+pnpm seed:local   # Seeds local storage
+```
+
+**When to use each mode:**
+
+| Feature | Remote Mode | Local Mode |
+|---------|-------------|------------|
+| **Images** | Cloudflare R2 bucket | `.wrangler/state/v3/r2/` |
+| **Database** | Remote D1 | `.wrangler/state/v3/d1/` |
+| **Speed** | Network latency | Instant (local) |
+| **Use Case** | Content creation, production data | Fast iteration, experiments |
+
+## Architecture
 
 ### Collections
 
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
+- **Users** - Authentication-enabled collection for admin access
+- **Media** - Uploads collection with R2 storage integration
+- **Reviews** - BBQ grill and smoker product reviews with ratings
+- **Authors** - Review authors with bio and image
+- **Categories** - Product categories (Pellet Grills, Gas Grills, etc.)
 
-- #### Users (Authentication)
+### Globals
 
-  Users are auth-enabled collections that have access to the admin panel.
-
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/main/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
-
-- #### Media
-
-  This is the uploads enabled collection.
+- **Settings** - Site-wide settings including logos, SEO, and contact info
 
 ### Image Storage (R2)
 
-Images will be served from an R2 bucket which you can then further configure to use a CDN to serve for your frontend directly.
+Images are stored in Cloudflare R2 object storage with the following configuration:
 
-### D1 Database
+- **Remote mode**: Images upload directly to the production R2 bucket
+- **Local mode**: Images stored in `.wrangler/state/v3/r2/` for development
+- **Configuration**: `wrangler.jsonc` with `"remote": true` enables remote R2
+- **Adapter**: `@payloadcms/storage-r2` handles uploads and URL generation
 
-The Worker will have direct access to a D1 SQLite database which Wrangler can connect locally to, just note that you won't have a connection string as you would typically with other providers.
+### Database (D1)
 
-You can enable read replicas by adding `readReplicas: 'first-primary'` in the DB adapter and then enabling it on your D1 Cloudflare dashboard. Read more about this feature on [our docs](https://payloadcms.com/docs/database/sqlite#d1-read-replicas).
+- SQLite database at the edge via Cloudflare D1
+- Automatic schema migrations with Payload's migration system
+- Local development uses `.wrangler/state/v3/d1/` for instant feedback
+- Read replicas can be enabled (see [Payload docs](https://payloadcms.com/docs/database/sqlite#d1-read-replicas))
+
+## Available Commands
+
+```bash
+# Development
+pnpm dev              # Start dev server (uses .env.local settings)
+pnpm dev:local        # Force local R2 + D1 (overrides .env.local)
+pnpm devsafe          # Clean dev start (removes .next and .open-next)
+
+# Database
+pnpm seed             # Seed database (respects .env.local)
+pnpm seed:local       # Seed local database only
+pnpm migrate          # Run migrations
+pnpm migrate:create   # Create a new migration
+
+# Build & Deploy
+pnpm build            # Build for production
+pnpm deploy           # Deploy to Cloudflare (database + app)
+pnpm preview          # Preview production build locally
+
+# Utilities
+pnpm generate:types   # Generate TypeScript types
+pnpm lint             # Run ESLint
+```
 
 ## Working with Cloudflare
 
-Firstly, after installing dependencies locally you need to authenticate with Wrangler by running:
+### Authentication
+
+First, authenticate with Wrangler:
 
 ```bash
 pnpm wrangler login
 ```
 
-This will take you to Cloudflare to login and then you can use the Wrangler CLI locally for anything, use `pnpm wrangler help` to see all available options.
+This connects Wrangler to your Cloudflare account. Use `pnpm wrangler help` to see all available commands.
 
-Wrangler is pretty smart so it will automatically bind your services for local development just by running `pnpm dev`.
+### Wrangler Configuration
 
-## Deployments
+The `wrangler.jsonc` file configures your Cloudflare resources:
 
-When you're ready to deploy, first make sure you have created your migrations:
+- **D1 Database**: `outdoorgrillcenter` (SQLite)
+- **R2 Bucket**: `outdoorgrillcenter` (object storage)
+- **Remote bindings**: Enabled for both D1 and R2 when `USE_REMOTE_R2=true`
+
+Wrangler automatically binds services for local development based on your `.env.local` configuration.
+
+## Deployment
+
+### First-Time Setup
+
+1. Create a Cloudflare D1 database and R2 bucket (if not already done)
+2. Update `wrangler.jsonc` with your database and bucket IDs
+3. Create and run migrations:
+   ```bash
+   pnpm migrate:create
+   pnpm migrate
+   ```
+
+### Deploy to Production
 
 ```bash
-pnpm payload migrate:create
+pnpm deploy
 ```
 
-Then run the following command:
+This command will:
+1. Run database migrations on remote D1
+2. Build the Next.js application
+3. Deploy to Cloudflare Workers
+
+The deployment uses the `opennextjs-cloudflare` adapter to optimize Next.js for Cloudflare Workers.
+
+### Environment Variables
+
+Set production environment variables in the Cloudflare dashboard or via Wrangler:
 
 ```bash
-pnpm run deploy
+# Set PAYLOAD_SECRET in production
+wrangler secret put PAYLOAD_SECRET
 ```
 
-This will spin up Wrangler in `production` mode, run any created migrations, build the app and then deploy the bundle up to Cloudflare.
+### CI/CD
 
-That's it! You can if you wish move these steps into your CI pipeline as well.
+You can integrate these deployment steps into your CI/CD pipeline. Ensure your pipeline has:
+- Cloudflare API token with appropriate permissions
+- Access to your repository
+- Node.js and pnpm installed
 
 ## Enabling logs
 
 By default logs are not enabled for your API, we've made this decision because it does run against your quota so we've left it opt-in. But you can easily enable logs in one click in the Cloudflare panel, [see docs](https://developers.cloudflare.com/workers/observability/logs/workers-logs/#enable-workers-logs).
 
-## Known issues
+## Troubleshooting
 
-### GraphQL
+### Images Not Uploading to R2
 
-We are currently waiting on some issues with GraphQL to be [fixed upstream in Workers](https://github.com/cloudflare/workerd/issues/5175) so full support for GraphQL is not currently guaranteed when deployed.
+If images aren't appearing in your R2 bucket:
 
-### Worker size limits
+1. **Check `wrangler.jsonc`**: Ensure `"remote": true` is set in the R2 bucket config:
+   ```jsonc
+   "r2_buckets": [
+     {
+       "binding": "R2",
+       "bucket_name": "outdoorgrillcenter",
+       "remote": true
+     }
+   ]
+   ```
 
-We currently recommend deploying this template to the Paid Workers plan due to bundle [size limits](https://developers.cloudflare.com/workers/platform/limits/#worker-size) of 3mb. We're actively trying to reduce our bundle footprint over time to better meet this metric.
+2. **Verify `.env.local`**: Ensure `USE_REMOTE_R2=true` for remote uploads
 
-This also applies to your own code, in the case of importing a lot of libraries you may find yourself limited by the bundle.
+3. **Restart dev server**: After changing config files, restart the dev server
+
+### Database Connection Issues
+
+- Ensure you're authenticated: `pnpm wrangler login`
+- Check that D1 database exists in your Cloudflare dashboard
+- Verify `database_id` in `wrangler.jsonc` matches your D1 database
+
+## Known Limitations
+
+### Worker Size Limits
+
+**This requires Cloudflare Paid Workers plan** due to 3MB bundle size limits. The application bundle exceeds the free tier limit.
+
+### GraphQL Support
+
+Full GraphQL support is limited when deployed due to [upstream issues in Workers](https://github.com/cloudflare/workerd/issues/5175). REST API endpoints work without issues.
+
+### Image Processing
+
+Sharp (image processing library) is not available in Workers. Image transformations like resizing and cropping are disabled in the Media collection configuration.
 
 ## Questions
 

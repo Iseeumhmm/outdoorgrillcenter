@@ -121,11 +121,19 @@ const SAMPLE_PRODUCT_REVIEWS = [
     body: {
       root: {
         type: 'root',
+        direction: 'ltr' as const,
+        format: '' as const,
+        indent: 0,
+        version: 1,
         children: [
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Introduction' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
@@ -135,6 +143,10 @@ const SAMPLE_PRODUCT_REVIEWS = [
                 text: "The Traeger Ironwood 885 represents the pinnacle of pellet grill technology, combining WiFIRE smart connectivity with Traeger's legendary wood-fired cooking performance. After extensive testing over three months, including everything from low-and-slow briskets to high-heat pizza, this grill has proven itself as a serious contender for serious outdoor cooks.",
               },
             ],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
@@ -144,27 +156,45 @@ const SAMPLE_PRODUCT_REVIEWS = [
                 text: 'At $1,999, the Ironwood 885 sits in the premium category, competing with high-end kamados and professional gas grills. The question is whether the smart features, cooking capacity, and build quality justify the investment for home cooks and weekend warriors.',
               },
             ],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Key Specifications' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'list',
             listType: 'bullet',
             children: [
-              { type: 'listitem', children: [{ type: 'text', text: 'Cooking area: 885 square inches total' }] },
-              { type: 'listitem', children: [{ type: 'text', text: 'Temperature range: 165-500°F' }] },
-              { type: 'listitem', children: [{ type: 'text', text: 'Hopper capacity: 20 pounds of pellets' }] },
-              { type: 'listitem', children: [{ type: 'text', text: 'Weight: 195 lbs' }] },
-              { type: 'listitem', children: [{ type: 'text', text: 'Warranty: 3-year limited' }] },
+              { type: 'listitem', children: [{ type: 'text', text: 'Cooking area: 885 square inches total' }], value: 1, version: 1 },
+              { type: 'listitem', children: [{ type: 'text', text: 'Temperature range: 165-500°F' }], value: 2, version: 1 },
+              { type: 'listitem', children: [{ type: 'text', text: 'Hopper capacity: 20 pounds of pellets' }], value: 3, version: 1 },
+              { type: 'listitem', children: [{ type: 'text', text: 'Weight: 195 lbs' }], value: 4, version: 1 },
+              { type: 'listitem', children: [{ type: 'text', text: 'Warranty: 3-year limited' }], value: 5, version: 1 },
             ],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
+            tag: 'ul',
+            start: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Build Quality & Design' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
@@ -174,6 +204,10 @@ const SAMPLE_PRODUCT_REVIEWS = [
                 text: "The Ironwood 885 feels substantial and well-engineered. The double-wall stainless steel interior provides excellent heat retention and durability. The powder-coated steel exterior resists rust and weathering, while the all-terrain wheels make repositioning manageable despite the 195-pound weight.",
               },
             ],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
@@ -183,11 +217,19 @@ const SAMPLE_PRODUCT_REVIEWS = [
                 text: "Assembly took approximately 90 minutes with two people. Instructions were clear, and all hardware was included. The pellet sensor and grease management system show thoughtful engineering that separates this from budget pellet grills.",
               },
             ],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Performance & Cooking Tests' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
@@ -197,6 +239,10 @@ const SAMPLE_PRODUCT_REVIEWS = [
                 text: "I tested the Ironwood 885 with a 12-pound brisket at 225°F for 14 hours. Temperature held steady within ±5°F throughout the entire cook. The Super Smoke mode between 165-225°F produced excellent smoke rings and bark development. TurboTemp brought the grill from 225°F to 450°F in just 7 minutes for reverse-searing.",
               },
             ],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
@@ -206,11 +252,19 @@ const SAMPLE_PRODUCT_REVIEWS = [
                 text: 'The 885 square inches of cooking space accommodated 9 full racks of ribs simultaneously using the second rack. Heat distribution was remarkably even - no significant hot or cold spots detected across the main grate.',
               },
             ],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'WiFIRE Technology' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
@@ -220,11 +274,19 @@ const SAMPLE_PRODUCT_REVIEWS = [
                 text: "The WiFIRE app allows full grill control from your phone - adjusting temperature, monitoring internal meat probes, and receiving alerts. During testing, connectivity was solid about 85% of the time, though occasional disconnects required app restarts. The ability to monitor overnight cooks from bed is genuinely convenient.",
               },
             ],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Ease of Use' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
@@ -234,11 +296,19 @@ const SAMPLE_PRODUCT_REVIEWS = [
                 text: "Operation is straightforward - load pellets, set temperature, and let the D2 controller handle the rest. The pellet sensor prevents embarrassing run-outs mid-cook. Start-up takes about 7 minutes from ignition to target temperature.",
               },
             ],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Cleaning & Maintenance' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
@@ -248,11 +318,19 @@ const SAMPLE_PRODUCT_REVIEWS = [
                 text: 'The grease management system channels drippings into a disposable bucket, making cleanup easy. I vacuum ash from the firepot every 3-4 cooks. Porcelain-coated grates clean with a standard grill brush.',
               },
             ],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Final Verdict' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
@@ -262,6 +340,10 @@ const SAMPLE_PRODUCT_REVIEWS = [
                 text: "The Traeger Ironwood 885 delivers on its premium promises. The combination of capacity, smart features, and cooking performance justifies the $1,999 price for serious outdoor cooks who want the convenience of pellet grilling without compromising on results.",
               },
             ],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
@@ -271,6 +353,10 @@ const SAMPLE_PRODUCT_REVIEWS = [
                 text: 'Best for: Families, entertainers, and BBQ enthusiasts who value convenience and capacity. Skip it if: Budget is limited or you prefer traditional charcoal flavor.',
               },
             ],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
         ],
       },
@@ -307,41 +393,77 @@ const SAMPLE_PRODUCT_REVIEWS = [
     body: {
       root: {
         type: 'root',
+        direction: 'ltr' as const,
+        format: '' as const,
+        indent: 0,
+        version: 1,
         children: [
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The Pit Boss Sportsman 820 proves you don\'t need to spend $2,000 to enjoy pellet grilling. At $899, this grill delivers 820 square inches of cooking space and the unique flame broiler feature that sets Pit Boss apart from competitors.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Performance Testing' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'Temperature control is decent but not exceptional. During a 10-hour pork shoulder cook at 250°F, I observed temperature swings between 235-265°F. The flame broiler lever is genuinely useful for searing steaks after smoking.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The 820 square inches easily handles a whole turkey plus sides. Porcelain-coated grates provide good heat retention and are easy to clean.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Build Quality' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'Construction is solid but shows cost-cutting in details - thinner metal, basic paint finish, and plastic components where premium grills use metal. That said, nothing feels unsafe or likely to fail prematurely.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Final Verdict' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The Sportsman 820 is the best value in pellet grilling. Accept slightly wider temperature swings and basic construction in exchange for saving $1,000+ versus premium brands. Perfect for beginners and budget-conscious cooks.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
         ],
       },
@@ -377,28 +499,52 @@ const SAMPLE_PRODUCT_REVIEWS = [
     body: {
       root: {
         type: 'root',
+        direction: 'ltr' as const,
+        format: '' as const,
+        indent: 0,
+        version: 1,
         children: [
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'At $599, the Z Grills 700D punches well above its weight class. The PID controller maintains temperatures within ±10°F, matching grills costing twice as much. The 700 square inches accommodates family meals and small gatherings easily.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Cooking Performance' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'I smoked ribs at 225°F for 5 hours with excellent results. The automatic auger fed pellets consistently, and the PID controller adjusted heat output to maintain steady temperatures. Smoke production was adequate for good flavor development.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Final Verdict' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The Z Grills 700D is the best entry-level pellet grill available. PID temperature control and 8-in-1 functionality at $599 make this an incredible value. Perfect for first-time pellet grillers.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
         ],
       },
@@ -436,37 +582,69 @@ const SAMPLE_PRODUCT_REVIEWS = [
     body: {
       root: {
         type: 'root',
+        direction: 'ltr' as const,
+        format: '' as const,
+        indent: 0,
+        version: 1,
         children: [
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The Kamado Joe Classic III is the result of decades of kamado evolution. The Divide & Conquer multi-level cooking system alone justifies the upgrade from previous versions, allowing simultaneous cooking at different heights and temperatures.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Divide & Conquer System' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The three-tier flexible rack system lets you configure cooking zones for different foods. I\'ve simultaneously smoked salmon on the top tier at 225°F while roasting vegetables on the lower tier at 350°F. This versatility is unmatched in the kamado world.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Temperature Control' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'Ceramic construction provides thermal mass that holds temperatures rock-steady. I maintained 225°F for 16 hours during a brisket cook with minimal vent adjustments. The kontrol tower top vent allows precise airflow control.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Final Verdict' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The Kamado Joe Classic III is the best kamado grill available. The Divide & Conquer system, Air Lift hinge, and SlōRoller attachment justify the $1,699 price for serious cooks. This is an heirloom-quality cooker that will last decades.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
         ],
       },
@@ -503,28 +681,52 @@ const SAMPLE_PRODUCT_REVIEWS = [
     body: {
       root: {
         type: 'root',
+        direction: 'ltr' as const,
+        format: '' as const,
+        indent: 0,
+        version: 1,
         children: [
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The Big Green Egg is the kamado that started it all. The Large model offers 262 square inches of cooking space - enough for a turkey or multiple racks of ribs. After testing for three months, the BGE proves why it remains the benchmark.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Temperature Control' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The thick ceramic walls provide exceptional heat retention. I held 250°F for 14 hours during a pork shoulder cook with only one vent adjustment. The daisy wheel draft door allows precise airflow control once you learn the feel.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Final Verdict' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The Big Green Egg Large is a solid choice at $1,299, though the Kamado Joe Classic III offers more innovation for $400 more. The BGE\'s lifetime warranty and established dealer network provide peace of mind. Best for traditional kamado enthusiasts.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
         ],
       },
@@ -560,28 +762,52 @@ const SAMPLE_PRODUCT_REVIEWS = [
     body: {
       root: {
         type: 'root',
+        direction: 'ltr' as const,
+        format: '' as const,
+        indent: 0,
+        version: 1,
         children: [
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The Weber Spirit II E-310 is the gas grill I recommend most often. At $649, it offers Weber\'s legendary reliability without premium pricing. The GS4 grilling system ensures consistent ignition and even heat distribution across 529 square inches.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Cooking Performance' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The three stainless steel burners deliver 30,000 BTUs total. Heat distribution is excellent - no significant hot or cold spots. I cooked 12 burgers simultaneously with even results across the grate. The porcelain-enameled Flavorizer bars catch drippings and create smoke for enhanced flavor.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Final Verdict' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The Weber Spirit II E-310 is the best 3-burner gas grill under $700. Reliable ignition, even cooking, and a 10-year warranty make this the safe choice for families. Buy this and grill with confidence for the next decade.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
         ],
       },
@@ -617,28 +843,52 @@ const SAMPLE_PRODUCT_REVIEWS = [
     body: {
       root: {
         type: 'root',
+        direction: 'ltr' as const,
+        format: '' as const,
+        indent: 0,
+        version: 1,
         children: [
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'At $399, the Char-Broil Performance 4-Burner offers tremendous value. Four burners plus a side burner provide versatility for family cookouts. The 475 square inches of primary cooking space handles enough food for 6-8 people.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Performance' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The four stainless steel burners heat quickly and distribute heat reasonably well. Some hot spots over the burners, but nothing unexpected at this price. The side burner is genuinely useful for sauces and sides.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Final Verdict' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The Char-Broil Performance 4-Burner is the best gas grill under $400. Accept basic build quality and plan to replace it in 3-5 years, but enjoy great value in the meantime. Perfect for apartment balconies and budget-conscious families.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
         ],
       },
@@ -674,28 +924,52 @@ const SAMPLE_PRODUCT_REVIEWS = [
     body: {
       root: {
         type: 'root',
+        direction: 'ltr' as const,
+        format: '' as const,
+        indent: 0,
+        version: 1,
         children: [
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The Masterbuilt Digital Electric Smoker is the easiest path to smoked meats. Set the temperature, add wood chips, and let it work. The 710 square inches across four racks provides ample space for multiple pork shoulders or several racks of ribs.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Ease of Use' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'Digital controls make temperature selection simple. The side chip loading system allows adding chips without opening the door and losing heat. Perfect for beginners who want smoking without the fire management learning curve.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Final Verdict' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The Masterbuilt Digital Electric Smoker is the best choice for smoking beginners. Smoke flavor won\'t match charcoal, but convenience and ease of use at $349 make this a smart entry point. Great for apartments with electrical outlets near patios.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
         ],
       },
@@ -711,7 +985,7 @@ const SAMPLE_PRODUCT_REVIEWS = [
     productModel: 'PB150PPG',
     amazonASIN: '',
     productPrice: 399,
-    productType: 'portable',
+    productType: 'pellet-grill' as const,
     categoryIndex: 5,
     featured: false,
     estReadingTime: 6,
@@ -731,37 +1005,69 @@ const SAMPLE_PRODUCT_REVIEWS = [
     body: {
       root: {
         type: 'root',
+        direction: 'ltr' as const,
+        format: '' as const,
+        indent: 0,
+        version: 1,
         children: [
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The Pit Boss PB150PPG proves portable doesn\'t mean compromised. At 43 pounds with lock-tight latches, this tabletop pellet grill travels easily to tailgates, campsites, and picnics. The 256 square inches accommodates meals for 2-4 people.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Portability & Build' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The convenient handles and latching lid make transport easy. At 43 pounds, one person can load it into a vehicle. Digital LED controls provide the same functionality as full-size Pit Boss grills. The flame broiler lever adds direct grilling capability.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Cooking Performance' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'Temperature control is decent for the size. The 180-500°F range handles low-and-slow smoking and high-heat searing. Wind affects temperature stability, so use a windbreak in breezy conditions. The small hopper holds enough pellets for 3-4 hour cooks.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'heading',
             tag: 'h2',
             children: [{ type: 'text', text: 'Final Verdict' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
           {
             type: 'paragraph',
             children: [{ type: 'text', text: 'The Pit Boss PB150PPG is the best portable pellet grill available. Real wood-fired flavor in a 43-pound package makes this ideal for RVers, tailgaters, and anyone with limited space. At $399 CAD, it\'s tremendous value for portable pellet grilling.' }],
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
+            version: 1,
           },
         ],
       },
@@ -790,9 +1096,50 @@ async function clearAllData(payload: any) {
     await payload.delete({ collection: 'categories', id: category.id })
   }
 
-  // Delete all media (removes files from R2)
+  // Create a temporary placeholder media to satisfy Settings foreign key constraints
+  console.log('   Creating temporary placeholder media...')
+  const placeholderFile = {
+    data: new Uint8Array([
+      0xff, 0xd8, 0xff, 0xe0, 0x00, 0x10, 0x4a, 0x46, 0x49, 0x46, 0x00, 0x01,
+      0x01, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x00, 0xff, 0xdb, 0x00, 0x43,
+      0x00, 0x08, 0x06, 0x06, 0x07, 0x06, 0x05, 0x08, 0x07, 0x07, 0x07, 0x09,
+      0x09, 0x08, 0x0a, 0x0c, 0x14, 0x0d, 0x0c, 0x0b, 0x0b, 0x0c, 0x19, 0x12,
+      0x13, 0x0f, 0x14, 0x1d, 0x1a, 0x1f, 0x1e, 0x1d, 0x1a, 0x1c, 0x1c, 0x20,
+      0x24, 0x2e, 0x27, 0x20, 0x22, 0x2c, 0x23, 0x1c, 0x1c, 0x28, 0x37, 0x29,
+      0x2c, 0x30, 0x31, 0x34, 0x34, 0x34, 0x1f, 0x27, 0x39, 0x3d, 0x38, 0x32,
+      0x3c, 0x2e, 0x33, 0x34, 0x32, 0xff, 0xc0, 0x00, 0x0b, 0x08, 0x00, 0x01,
+      0x00, 0x01, 0x01, 0x01, 0x11, 0x00, 0xff, 0xc4, 0x00, 0x14, 0x00, 0x01,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x03, 0xff, 0xc4, 0x00, 0x14, 0x10, 0x01, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0xff, 0xda, 0x00, 0x08, 0x01, 0x01, 0x00, 0x00, 0x3f, 0x00,
+      0x37, 0xff, 0xd9
+    ]), // Valid 1x1 pixel JPEG
+    mimetype: 'image/jpeg',
+    name: 'placeholder.jpg',
+    size: 162,
+  }
+  const placeholderMedia = await payload.create({
+    collection: 'media',
+    data: { alt: 'Temporary Placeholder' },
+    file: placeholderFile as any,
+  })
+
+  // Update settings to point to placeholder before deleting media
+  console.log('   Updating settings to use placeholder...')
+  await payload.updateGlobal({
+    slug: 'settings',
+    data: {
+      logo: placeholderMedia.id,
+      logoalt: placeholderMedia.id,
+    },
+  })
+
+  // Delete all media except placeholder (removes files from R2)
   const media = await payload.find({ collection: 'media', limit: 1000 })
   for (const mediaItem of media.docs) {
+    // Skip placeholder - will be deleted after real logos are created
+    if (mediaItem.id === placeholderMedia.id) continue
     await payload.delete({ collection: 'media', id: mediaItem.id })
   }
 
@@ -807,8 +1154,13 @@ async function seed() {
 
     const payload = await getPayload({ config })
 
-    // Clear all existing data
-    await clearAllData(payload)
+    // Clear all existing data (skip if remote database is empty)
+    const existingMedia = await payload.find({ collection: 'media', limit: 1 })
+    if (existingMedia.totalDocs > 0) {
+      await clearAllData(payload)
+    } else {
+      console.log('📭 Remote database is empty, skipping clear step...')
+    }
 
     // 1. Create Media
     console.log('🖼️  Creating media from Unsplash...')
@@ -869,6 +1221,14 @@ async function seed() {
     })
     console.log('✅ Settings created')
 
+    // Clean up placeholder media if it exists
+    const allMedia = await payload.find({ collection: 'media', limit: 1000 })
+    const placeholder = allMedia.docs.find((m: any) => m.alt === 'Temporary Placeholder')
+    if (placeholder) {
+      console.log('🧹 Removing temporary placeholder...')
+      await payload.delete({ collection: 'media', id: placeholder.id })
+    }
+
     // 3. Create Categories
     console.log('📁 Creating categories...')
     const categories = []
@@ -909,7 +1269,7 @@ async function seed() {
         productModel: review.productModel,
         amazonASIN: review.amazonASIN,
         productPrice: review.productPrice,
-        productType: review.productType,
+        productType: review.productType as 'pellet-grill' | 'gas-grill' | 'charcoal-grill' | 'kamado' | 'electric-smoker' | 'portable',
         prosAndCons: review.prosAndCons,
         author: author.id,
         categories: [categories[review.categoryIndex].id],

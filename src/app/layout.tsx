@@ -5,6 +5,7 @@ import { Providers } from "@/components/providers";
 export const metadata: Metadata = {
   title: "Outdoor Grill Center",
   description: "Your source for outdoor grilling information and reviews",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://outdoorgrillcenter.com'),
 };
 
 export default function RootLayout({
