@@ -454,7 +454,7 @@ interface StarRatingProps {
 - Alternating row colors: `even:bg-gray-50 dark:even:bg-gray-800`
 - Labels: font-medium, text-gray-700
 - Values: text-gray-900, dark mode variants
-- Border: border border-gray-200 dark:border-gray-700
+- Border: border border-bbq-cream dark:border-gray-700
 - Disclaimer: text-xs, text-gray-500, italic
 
 ---

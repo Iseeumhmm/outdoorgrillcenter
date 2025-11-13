@@ -1,78 +1,73 @@
-"use client";
+'use client'
 
-import { Fragment } from "react";
-import { Menu, Transition, Disclosure } from "@headlessui/react";
-import Container from "@/components/container";
-import Link from "next/link";
-import Image from "next/image";
-import { urlForImage } from "@/lib/payload/image";
-import cx from "clsx";
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import { myLoader } from "@/utils/all";
-import SearchInput from "./ui/search";
+import { Fragment } from 'react'
+import { Menu, Transition, Disclosure } from '@headlessui/react'
+import Container from '@/components/container'
+import Link from 'next/link'
+import Image from 'next/image'
+import { urlForImage } from '@/lib/payload/image'
+import cx from 'clsx'
+import { ChevronDownIcon } from '@heroicons/react/24/solid'
+import { myLoader } from '@/utils/all'
+import SearchInput from './ui/search'
 
 export default function NavbarAlt(props) {
   const menu = [
     {
-      label: "Home",
-      href: "#",
+      label: 'Home',
+      href: '#',
       children: [
-        { title: "Home Default", path: "/" },
-        { title: "Home Alternate", path: "/home/alt" },
-        { title: "Home Minimal", path: "/home/minimal" },
-        { title: "Home Lifestyle", path: "/home/lifestyle" },
-        { title: "Home Two Column", path: "/home/2-col" }
-      ]
+        { title: 'Home Default', path: '/' },
+        { title: 'Home Alternate', path: '/home/alt' },
+        { title: 'Home Minimal', path: '/home/minimal' },
+        { title: 'Home Lifestyle', path: '/home/lifestyle' },
+        { title: 'Home Two Column', path: '/home/2-col' },
+      ],
     },
     {
-      label: "About",
-      href: "/about"
+      label: 'About',
+      href: '/about',
     },
     {
-      label: "Contact",
-      href: "/contact"
+      label: 'Contact',
+      href: '/contact',
     },
     {
-      label: "Pages",
-      href: "#",
+      label: 'Pages',
+      href: '#',
       children: [
         {
-          title: "Category Page",
-          path: "/category/personal-growth"
+          title: 'Category Page',
+          path: '/category/personal-growth',
         },
         {
-          title: "Author Page",
-          path: "/author/mario-sanchez"
+          title: 'Author Page',
+          path: '/author/mario-sanchez',
         },
         {
-          title: "Search Page",
-          path: "/search?q=life"
+          title: 'Search Page',
+          path: '/search?q=life',
         },
-        { title: "Archive - Pagination", path: "/archive" },
+        { title: 'Archive - Pagination', path: '/archive' },
         {
-          title: "Single Post - Default",
-          path: "/post/10-simple-practices-that-will-help-you-get-1-better-every-day"
-        },
-        {
-          title: "Single Post - Minimal",
-          path: "/post/minimal/architectural-engineering-wonders-of-the-modern-era-for-your-inspiration"
+          title: 'Single Post - Default',
+          path: '/post/10-simple-practices-that-will-help-you-get-1-better-every-day',
         },
         {
-          title: "Single Post - Lifestyle",
-          path: "/post/lifestyle/there-s-nothing-new-about-undermining-women-s-autonomy"
+          title: 'Single Post - Minimal',
+          path: '/post/minimal/architectural-engineering-wonders-of-the-modern-era-for-your-inspiration',
         },
         {
-          title: "Single Post - Sidebar",
-          path: "/post/sidebar/lessons-of-happiness-i-learned-from-a-mountain-village"
-        }
-      ]
+          title: 'Single Post - Lifestyle',
+          path: '/post/lifestyle/there-s-nothing-new-about-undermining-women-s-autonomy',
+        },
+        {
+          title: 'Single Post - Sidebar',
+          path: '/post/sidebar/lessons-of-happiness-i-learned-from-a-mountain-village',
+        },
+      ],
     },
-    {
-      label: "Purchase",
-      href: "https://web3templates.com/templates/stablo-minimal-blog-website-template",
-      external: true
-    }
-  ];
+  ]
 
   return (
     <Container className="!py-0">
@@ -91,9 +86,7 @@ export default function NavbarAlt(props) {
                         sizes="(max-width: 640px) 100vw, 200px"
                       />
                     ) : (
-                      <span className="block text-center">
-                        Stablo
-                      </span>
+                      <span className="block text-center">Stablo</span>
                     )}
                   </Link>
                   <Link href="/" className="hidden w-28 dark:block">
@@ -105,18 +98,18 @@ export default function NavbarAlt(props) {
                         sizes="(max-width: 640px) 100vw, 200px"
                       />
                     ) : (
-                      <span className="block text-center">
-                        Stablo
-                      </span>
+                      <span className="block text-center">Stablo</span>
                     )}
                   </Link>
                   <Disclosure.Button
                     aria-label="Toggle Menu"
-                    className="ml-auto rounded-md px-2 py-1 text-gray-500 focus:text-blue-500 focus:outline-none dark:text-gray-300 lg:hidden ">
+                    className="ml-auto rounded-md px-2 py-1 text-gray-500 focus:text-blue-500 focus:outline-none dark:text-gray-300 lg:hidden "
+                  >
                     <svg
                       className="h-6 w-6 fill-current"
                       xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24">
+                      viewBox="0 0 24 24"
+                    >
                       {open && (
                         <path
                           fillRule="evenodd"
@@ -138,17 +131,14 @@ export default function NavbarAlt(props) {
                     {menu.map((item, index) => (
                       <Fragment key={`${item.label}-${index}`}>
                         {item.children && item.children.length > 0 ? (
-                          <DropdownMenu
-                            menu={item}
-                            items={item.children}
-                            mobile={props.mobile}
-                          />
+                          <DropdownMenu menu={item} items={item.children} mobile={props.mobile} />
                         ) : (
                           <Link
                             href={item.href}
                             className="rounded-full px-5 py-2 font-medium text-gray-600 outline-none ring-blue-100 hover:text-blue-500 focus-visible:text-blue-500 focus-visible:ring-2 dark:text-gray-400"
-                            target={item.external ? "_blank" : ""}
-                            rel={item.external ? "noopener" : ""}>
+                            target={item.external ? '_blank' : ''}
+                            rel={item.external ? 'noopener' : ''}
+                          >
                             {item.label}
                           </Link>
                         )}
@@ -167,17 +157,14 @@ export default function NavbarAlt(props) {
                   {menu.map((item, index) => (
                     <Fragment key={`${item.label}-${index}-mobile`}>
                       {item.children && item.children.length > 0 ? (
-                        <DropdownMenu
-                          menu={item}
-                          items={item.children}
-                          mobile={true}
-                        />
+                        <DropdownMenu menu={item} items={item.children} mobile={true} />
                       ) : (
                         <Link
                           href={item.href}
                           className="rounded-full px-5 py-2 text-sm font-medium text-gray-600 outline-none ring-blue-100 hover:text-blue-500 focus-visible:text-blue-500 focus-visible:ring-2 dark:text-gray-400"
-                          target={item.external ? "_blank" : ""}
-                          rel={item.external ? "noopener" : ""}>
+                          target={item.external ? '_blank' : ''}
+                          rel={item.external ? 'noopener' : ''}
+                        >
                           {item.label}
                         </Link>
                       )}
@@ -195,7 +182,7 @@ export default function NavbarAlt(props) {
         </Disclosure>
       </nav>
     </Container>
-  );
+  )
 }
 
 const DropdownMenu = ({ menu, items, mobile }) => {
@@ -205,14 +192,11 @@ const DropdownMenu = ({ menu, items, mobile }) => {
         <>
           <Menu.Button
             className={cx(
-              "flex items-center gap-x-1 rounded-full px-5 py-2  font-medium outline-none ring-blue-100 transition-all focus-visible:text-blue-500 focus-visible:ring-2",
-              open
-                ? "text-blue-500 hover:text-blue-500"
-                : " text-gray-600 dark:text-gray-400 ",
-              mobile
-                ? "w-full px-4 py-2 text-sm"
-                : "inline-block px-4 py-2"
-            )}>
+              'flex items-center gap-x-1 rounded-full px-5 py-2  font-medium outline-none ring-blue-100 transition-all focus-visible:text-blue-500 focus-visible:ring-2',
+              open ? 'text-blue-500 hover:text-blue-500' : ' text-gray-600 dark:text-gray-400 ',
+              mobile ? 'w-full px-4 py-2 text-sm' : 'inline-block px-4 py-2',
+            )}
+          >
             <span>{menu.label}</span>
             <ChevronDownIcon className="mt-0.5 h-4 w-4" />
           </Menu.Button>
@@ -223,24 +207,27 @@ const DropdownMenu = ({ menu, items, mobile }) => {
             enterTo="lg:transform lg:opacity-100 lg:scale-100"
             leave="lg:transition lg:ease-in lg:duration-75"
             leaveFrom="lg:transform lg:opacity-100 lg:scale-100"
-            leaveTo="lg:transform lg:opacity-0 lg:scale-95">
+            leaveTo="lg:transform lg:opacity-0 lg:scale-95"
+          >
             <Menu.Items
               className={cx(
-                "z-20 origin-top-left rounded-md  focus:outline-none  lg:absolute lg:left-0  lg:w-56",
-                !mobile && "bg-white shadow-lg  dark:bg-gray-800"
-              )}>
-              <div className={cx(!mobile && "py-3")}>
+                'z-20 origin-top-left rounded-md  focus:outline-none  lg:absolute lg:left-0  lg:w-56',
+                !mobile && 'bg-white shadow-lg  dark:bg-gray-800',
+              )}
+            >
+              <div className={cx(!mobile && 'py-3')}>
                 {items.map((item, index) => (
                   <Menu.Item as="div" key={`${item.title}-${index}`}>
                     {({ active }) => (
                       <Link
-                        href={item?.path ? item.path : "#"}
+                        href={item?.path ? item.path : '#'}
                         className={cx(
-                          "flex items-center space-x-2 px-5 py-2 text-sm lg:space-x-4",
+                          'flex items-center space-x-2 px-5 py-2 text-sm lg:space-x-4',
                           active
-                            ? "text-blue-500"
-                            : "text-gray-700 hover:text-blue-500 focus:text-blue-500 dark:text-gray-300"
-                        )}>
+                            ? 'text-blue-500'
+                            : 'text-gray-700 hover:text-blue-500 focus:text-blue-500 dark:text-gray-300',
+                        )}
+                      >
                         <span> {item.title}</span>
                       </Link>
                     )}
@@ -252,5 +239,5 @@ const DropdownMenu = ({ menu, items, mobile }) => {
         </>
       )}
     </Menu>
-  );
-};
+  )
+}

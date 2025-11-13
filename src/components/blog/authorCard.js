@@ -1,12 +1,12 @@
-import Image from "next/image";
-import { RichTextInline } from "@/lib/payload/RichTextRenderer";
-import { urlForImage } from "@/lib/payload/image";
-import Link from "next/link";
+import Image from 'next/image'
+import { RichTextInline } from '@/lib/payload/RichTextRenderer'
+import { urlForImage } from '@/lib/payload/image'
+import Link from 'next/link'
 
 export default function AuthorCard({ author }) {
-  const imageProps = author?.image ? urlForImage(author.image) : null;
+  const imageProps = author?.image ? urlForImage(author.image) : null
   return (
-    <div className="mt-3 rounded-2xl bg-gray-50 px-8 py-8 text-gray-500 dark:bg-gray-900 dark:text-gray-400">
+    <div className="mt-3 rounded-2xl bg-gray-50 px-8 py-8 text-gray-500 dark:bg-bbq-charcoal dark:text-white">
       <div className="flex flex-wrap items-start sm:flex-nowrap sm:space-x-6">
         <div className="relative mt-1 h-24 w-24 flex-shrink-0 ">
           {imageProps && (
@@ -23,22 +23,21 @@ export default function AuthorCard({ author }) {
         </div>
         <div>
           <div className="mb-3">
-            <h3 className="text-lg font-medium text-gray-800 dark:text-gray-300">
+            <h3 className="text-lg font-medium text-gray-800 dark:text-white">
               About {author.name}
             </h3>
           </div>
-          <div>
-            {author.bio && <RichTextInline value={author.bio} />}
-          </div>
-          <div className="mt-3">
+          <div>{author.bio && <RichTextInline value={author.bio} />}</div>
+          <div className="mt-6">
             <Link
               href={`/author/${author.slug}`}
-              className="bg-[#FF6F00]/20 rounded-full py-2 text-sm text-[#D32F2F] dark:text-[#FF6F00]">
+              className="bg-orange-600/20 rounded-full py-2 px-3 text-sm text-red-700 dark:text-orange-600"
+            >
               View Profile
             </Link>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }

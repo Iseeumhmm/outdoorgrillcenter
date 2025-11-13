@@ -1,21 +1,18 @@
-import { notFound } from "next/navigation";
-import Container from "@/components/container";
-import { RichText } from "@/lib/payload/RichTextRenderer";
-import AuthorCard from "@/components/blog/authorCard";
-import Link from "next/link";
+import { notFound } from 'next/navigation'
+import Container from '@/components/container'
+import { RichText } from '@/lib/payload/RichTextRenderer'
+import AuthorCard from '@/components/blog/authorCard'
+import Link from 'next/link'
 
 // Review-specific components
-import ReviewHero from "@/components/review/ReviewHero";
-import ReviewQuickInfo from "@/components/review/ReviewQuickInfo";
-import ProsConsList from "@/components/review/ProsConsList";
-import ProductSpecs from "@/components/review/ProductSpecs";
-import AmazonCTA from "@/components/review/AmazonCTA";
+import ReviewHero from '@/components/review/ReviewHero'
+import ReviewQuickInfo from '@/components/review/ReviewQuickInfo'
+import ProsConsList from '@/components/review/ProsConsList'
+import ProductSpecs from '@/components/review/ProductSpecs'
+import AmazonCTA from '@/components/review/AmazonCTA'
 
 // Schema.org structured data
-import {
-  generateReviewSchema,
-  generateBreadcrumbSchema
-} from "@/lib/seo/reviewSchema";
+import { generateReviewSchema, generateBreadcrumbSchema } from '@/lib/seo/reviewSchema'
 
 /**
  * Review Detail Page Component
@@ -23,15 +20,12 @@ import {
  */
 export default async function ReviewPage({ review }) {
   if (!review) {
-    return notFound();
+    return notFound()
   }
 
   // Generate structured data for SEO
-  const reviewSchema = generateReviewSchema(review);
-  const breadcrumbSchema = generateBreadcrumbSchema(
-    review,
-    review.productType
-  );
+  const reviewSchema = generateReviewSchema(review)
+  const breadcrumbSchema = generateBreadcrumbSchema(review, review.productType)
 
   return (
     <>
@@ -43,7 +37,7 @@ export default async function ReviewPage({ review }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbSchema)
+          __html: JSON.stringify(breadcrumbSchema),
         }}
       />
 
@@ -67,8 +61,7 @@ export default async function ReviewPage({ review }) {
           </div>
 
           {/* Pros and Cons */}
-          {(review.prosAndCons?.pros?.length > 0 ||
-            review.prosAndCons?.cons?.length > 0) && (
+          {(review.prosAndCons?.pros?.length > 0 || review.prosAndCons?.cons?.length > 0) && (
             <div className="mb-12">
               <h2 className="mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                 Pros & Cons
@@ -85,7 +78,7 @@ export default async function ReviewPage({ review }) {
             <h2 className="mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
               Detailed Review
             </h2>
-            <div className="prose prose-lg mx-auto dark:prose-invert">
+            <div className="prose prose-lg mx-auto dark:prose-invert dark:text-white">
               {review.body && <RichText value={review.body} />}
             </div>
           </div>
@@ -111,8 +104,8 @@ export default async function ReviewPage({ review }) {
           )}
 
           {/* Author Bio */}
-          {review.author && typeof review.author === "object" && (
-            <div className="mb-12 border-t border-gray-200 pt-8 dark:border-gray-800">
+          {review.author && typeof review.author === 'object' && (
+            <div className="mb-12 border-t border-bbq-charcoal pt-8">
               <h2 className="mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                 About the Author
               </h2>
@@ -121,17 +114,12 @@ export default async function ReviewPage({ review }) {
           )}
 
           {/* Navigation Links */}
-          <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-gray-200 pt-8 dark:border-gray-800">
+          <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-bbq-charcoal pt-8">
             <Link
               href="/reviews"
               className="inline-flex items-center gap-2 font-medium text-bbq-charcoal hover:underline dark:text-white"
             >
-              <svg
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -148,12 +136,7 @@ export default async function ReviewPage({ review }) {
                 className="inline-flex items-center gap-2 font-medium text-bbq-charcoal hover:underline dark:text-white"
               >
                 More {formatProductType(review.productType)} Reviews
-                <svg
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -167,7 +150,7 @@ export default async function ReviewPage({ review }) {
         </div>
       </Container>
     </>
-  );
+  )
 }
 
 /**
@@ -175,7 +158,7 @@ export default async function ReviewPage({ review }) {
  */
 function formatProductType(slug) {
   return slug
-    .split("-")
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
 }

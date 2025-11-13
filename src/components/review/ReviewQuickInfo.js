@@ -27,7 +27,7 @@ export default function ReviewQuickInfo({
   return (
     <div
       className={cx(
-        'overflow-hidden rounded-xl border-2 border-bbq-charcoal/20 bg-gradient-to-br from-bbq-cream to-dark-bg shadow-lg dark:border-bbq-charcoal/40 dark:from-bbq-charcoal dark:to-dark-bg',
+        'overflow-hidden rounded-xl border-2 border-bbq-charcoal/20 bg-gradient-to-br from-bbq-charcoal to-dark-bg shadow-lg dark:border-bbq-charcoal/40 dark:from-bbq-charcoal dark:to-dark-bg',
         className,
       )}
     >
@@ -46,8 +46,8 @@ export default function ReviewQuickInfo({
         </h3>
 
         {/* Rating Badge */}
-        <div className="flex items-center gap-2 rounded-full bg-white px-4 py-2 shadow-sm dark:bg-gray-800">
-          <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Rating:</span>
+        <div className="flex items-center gap-2 rounded-full bg-bbq-cream px-4 py-2 shadow-sm">
+          <span className="text-sm font-medium text-bbq-charcoal ">Rating:</span>
           <StarRating rating={review.rating} size="sm" showNumeric />
         </div>
       </div>

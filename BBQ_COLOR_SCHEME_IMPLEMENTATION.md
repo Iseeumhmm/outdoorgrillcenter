@@ -166,7 +166,7 @@ a:hover {
 **Changes:**
 ```jsx
 // Before (example)
-<nav className="bg-white border-b border-gray-200">
+<nav className="bg-white border-b border-bbq-cream">
   <a href="/" className="text-blue-600 hover:text-blue-800">Home</a>
 </nav>
 

@@ -1,32 +1,32 @@
-import Container from "@/components/container";
-import ReviewCard from "@/components/review/ReviewCard";
-import { getPaginatedReviews } from "@/lib/payload/client";
-import Pagination from "@/components/blog/pagination";
+import Container from '@/components/container'
+import ReviewCard from '@/components/review/ReviewCard'
+import { getPaginatedReviews } from '@/lib/payload/client'
+import Pagination from '@/components/blog/pagination'
 
 /**
  * Reviews Archive Page
  * Displays all reviews with pagination
  */
 export const metadata = {
-  title: "Grill Reviews - Outdoor Grill Center",
+  title: 'Grill Reviews - Outdoor Grill Center',
   description:
-    "In-depth reviews of pellet grills, gas grills, charcoal grills, and more. Expert ratings, pros & cons, and buying guides for outdoor cooking equipment."
-};
+    'In-depth reviews of pellet grills, gas grills, charcoal grills, and more. Expert ratings, pros & cons, and buying guides for outdoor cooking equipment.',
+}
 
 export default async function ReviewsArchivePage({ searchParams }) {
   // Get current page from query params (default to 1)
-  const resolvedSearchParams = await searchParams;
-  const currentPage = parseInt(resolvedSearchParams.page) || 1;
-  const pageIndex = currentPage - 1; // Convert to 0-based index
-  const postsPerPage = 12;
+  const resolvedSearchParams = await searchParams
+  const currentPage = parseInt(resolvedSearchParams.page) || 1
+  const pageIndex = currentPage - 1 // Convert to 0-based index
+  const postsPerPage = 12
 
   // Fetch paginated reviews
   const reviewData = await getPaginatedReviews({
     pageIndex,
-    limit: postsPerPage
-  });
+    limit: postsPerPage,
+  })
 
-  const { reviews, totalPages, page } = reviewData;
+  const { reviews, totalPages, page } = reviewData
 
   return (
     <>
@@ -37,9 +37,8 @@ export default async function ReviewsArchivePage({ searchParams }) {
             Grill Reviews
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-600 dark:text-gray-400">
-            Expert reviews of outdoor grills and cooking equipment. Find the
-            perfect grill for your backyard with our detailed analysis, ratings,
-            and buying guides.
+            Expert reviews of outdoor grills and cooking equipment. Find the perfect grill for your
+            backyard with our detailed analysis, ratings, and buying guides.
           </p>
         </div>
 
@@ -47,23 +46,15 @@ export default async function ReviewsArchivePage({ searchParams }) {
         {reviews && reviews.length > 0 ? (
           <>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {reviews.map(review => (
-                <ReviewCard
-                  key={review.id}
-                  review={review}
-                  aspect="landscape"
-                />
+              {reviews.map((review) => (
+                <ReviewCard key={review.id} review={review} aspect="landscape" />
               ))}
             </div>
 
             {/* Pagination */}
             {totalPages > 1 && (
               <div className="mt-12">
-                <Pagination
-                  totalPages={totalPages}
-                  currentPage={page}
-                  basePath="/reviews"
-                />
+                <Pagination totalPages={totalPages} currentPage={page} basePath="/reviews" />
               </div>
             )}
           </>
@@ -92,35 +83,23 @@ export default async function ReviewsArchivePage({ searchParams }) {
         )}
 
         {/* Browse by Type Section */}
-        <div className="mt-16 border-t border-gray-200 pt-12 dark:border-gray-800">
+        <div className="mt-16 border-t border-bbq-cream pt-12 dark:border-gray-800">
           <h2 className="mb-6 text-center text-2xl font-semibold text-gray-900 dark:text-white">
             Browse by Type
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            <BrowseTypeCard
-              type="pellet-grill"
-              label="Pellet Grills"
-              icon="🔥"
-            />
+            <BrowseTypeCard type="pellet-grill" label="Pellet Grills" icon="🔥" />
             <BrowseTypeCard type="gas-grill" label="Gas Grills" icon="⚡" />
             <BrowseTypeCard type="charcoal" label="Charcoal Grills" icon="🪵" />
             <BrowseTypeCard type="kamado" label="Kamado Grills" icon="🏺" />
-            <BrowseTypeCard
-              type="electric"
-              label="Electric Grills"
-              icon="🔌"
-            />
-            <BrowseTypeCard
-              type="portable"
-              label="Portable Grills"
-              icon="🎒"
-            />
+            <BrowseTypeCard type="electric" label="Electric Grills" icon="🔌" />
+            <BrowseTypeCard type="portable" label="Portable Grills" icon="🎒" />
             <BrowseTypeCard type="smoker" label="Smokers" icon="💨" />
           </div>
         </div>
       </Container>
     </>
-  );
+  )
 }
 
 /**
@@ -130,12 +109,12 @@ function BrowseTypeCard({ type, label, icon }) {
   return (
     <a
       href={`/reviews/type/${type}`}
-      className="group flex flex-col items-center gap-3 rounded-lg border border-gray-200 bg-white p-6 text-center transition-all hover:border-bbq-fire hover:shadow-md dark:border-gray-800 dark:bg-gray-900 dark:hover:border-bbq-fire"
+      className="group flex flex-col items-center gap-3 rounded-lg border border-bbq-cream bg-white p-6 text-center transition-all hover:border-bbq-fire hover:shadow-md dark:border-gray-800 dark:bg-gray-900 dark:hover:border-bbq-fire"
     >
       <span className="text-4xl">{icon}</span>
       <span className="font-semibold text-gray-900 group-hover:text-bbq-fire dark:text-white">
         {label}
       </span>
     </a>
-  );
+  )
 }

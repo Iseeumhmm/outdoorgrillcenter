@@ -44,59 +44,6 @@
   --color-border: var(--color-bbq-brown);
 }
 
-/* Ensure BBQ color utilities are generated */
-@layer utilities {
-  /* Text colors */
-  .text-bbq-charcoal {
-    color: var(--color-bbq-charcoal);
-  }
-  .text-bbq-fire {
-    color: var(--color-bbq-fire);
-  }
-  .text-bbq-cream {
-    color: var(--color-bbq-cream);
-  }
-  .text-bbq-green {
-    color: var(--color-bbq-green);
-  }
-  .text-bbq-amber {
-    color: var(--color-bbq-amber);
-  }
-  .text-bbq-orange {
-    color: var(--color-bbq-orange);
-  }
-  .text-bbq-brown {
-    color: var(--color-bbq-brown);
-  }
-  .text-bbq-gray {
-    color: var(--color-bbq-gray);
-  }
-
-  /* Background colors */
-  .bg-bbq-charcoal {
-    background-color: var(--color-bbq-charcoal);
-  }
-  .bg-bbq-fire {
-    background-color: var(--color-bbq-fire);
-  }
-  .bg-bbq-cream {
-    background-color: var(--color-bbq-cream);
-  }
-  .bg-bbq-green {
-    background-color: var(--color-bbq-green);
-  }
-
-  /* Border colors */
-  .border-bbq-fire {
-    border-color: var(--color-bbq-fire);
-  }
-  .border-bbq-green {
-    border-color: var(--color-bbq-green);
-  }
-  .border-bbq-charcoal {
-    border-color: var(--color-bbq-charcoal);
-  }
-}
 
 /* Base Typography Styles */
 @layer base {
@@ -110,12 +57,20 @@
 
   /* Link Styles */
   a {
-    color: var(--color-primary);
+    color: var(--color-bbq-charcoal);
     transition: color 0.2s ease;
   }
 
   a:hover {
-    color: var(--color-primary-hover);
+    color: var(--color-bbq-fire);
+  }
+
+  .dark a {
+    color: var(--color-bbq-cream);
+  }
+
+  .dark a:hover {
+    color: var(--color-bbq-amber);
   }
 }
 

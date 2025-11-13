@@ -1,10 +1,10 @@
-import Image from "next/image";
-import { urlForImage } from "@/lib/payload/image";
-import { format, parseISO } from "date-fns";
-import { cx } from "@/utils/all";
-import StarRating from "./StarRating";
-import ProductTypeBadge from "./ProductTypeBadge";
-import CategoryLabel from "../blog/category";
+import Image from 'next/image'
+import { urlForImage } from '@/lib/payload/image'
+import { format, parseISO } from 'date-fns'
+import { cx } from '@/utils/all'
+import StarRating from './StarRating'
+import ProductTypeBadge from './ProductTypeBadge'
+import CategoryLabel from '../blog/category'
 
 /**
  * ReviewHero Component
@@ -14,24 +14,24 @@ import CategoryLabel from "../blog/category";
  * @param {boolean} showImage - Whether to display the main product image (default: true)
  */
 export default function ReviewHero({ review, showImage = true }) {
-  if (!review) return null;
+  if (!review) return null
 
-  const imageProps = review?.mainImage ? urlForImage(review.mainImage) : null;
+  const imageProps = review?.mainImage ? urlForImage(review.mainImage) : null
   const authorImageProps =
-    review?.author?.image && typeof review.author.image === "object"
+    review?.author?.image && typeof review.author.image === 'object'
       ? urlForImage(review.author.image)
-      : null;
+      : null
 
-  const productName = review.productName || review.title;
+  const productName = review.productName || review.title
 
   return (
     <div className="mb-12">
       {/* Category Labels */}
       {review.categories && review.categories.length > 0 && (
         <div className="mb-6 flex flex-wrap justify-center gap-3 md:justify-start">
-          {review.categories.map(category => (
+          {review.categories.map((category) => (
             <CategoryLabel
-              key={typeof category === "object" ? category.id : category}
+              key={typeof category === 'object' ? category.id : category}
               category={category}
             />
           ))}
@@ -40,9 +40,7 @@ export default function ReviewHero({ review, showImage = true }) {
 
       {/* Product Type and Brand Badges */}
       <div className="mb-5 flex flex-wrap items-center gap-3">
-        {review.productType && (
-          <ProductTypeBadge productType={review.productType} />
-        )}
+        {review.productType && <ProductTypeBadge productType={review.productType} />}
         {review.productBrand && (
           <span className="rounded-full bg-gray-100 px-4 py-1.5 text-sm font-bold uppercase tracking-wide text-gray-700 dark:bg-gray-800 dark:text-gray-300">
             {review.productBrand}
@@ -51,37 +49,32 @@ export default function ReviewHero({ review, showImage = true }) {
       </div>
 
       {/* Product Name (Large Heading) */}
-      <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-bbq-charcoal dark:text-white md:text-5xl">
+      <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-bbq-charcoal md:text-5xl dark:text-white">
         {productName}
       </h1>
 
       {/* Star Rating (Large) */}
       <div className="mb-6">
         <StarRating rating={review.rating} size="lg" showNumeric />
-        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-          out of 5 stars
-        </p>
       </div>
 
       {/* Model and Price Row */}
       <div className="mb-6 flex flex-wrap items-center gap-4 text-base">
         {review.productModel && (
           <div className="flex items-center gap-2">
-            <span className="text-gray-600 dark:text-gray-400">Model:</span>
-            <span className="font-semibold text-gray-900 dark:text-gray-100">
+            <span className="text-bbq-charcoal dark:text-gray-400">Model:</span>
+            <span className="font-semibold text-bbq-charcaol dark:text-gray-100">
               {review.productModel}
             </span>
           </div>
         )}
         {review.productPrice && (
           <div className="flex items-center gap-2">
-            <span className="text-gray-600 dark:text-gray-400">Price:</span>
-            <span className="font-mono text-2xl font-bold text-gray-900 dark:text-gray-100">
+            <span className="text-bbq-charcoal dark:text-gray-400">Price:</span>
+            <span className="font-semibold text-bbq-charcaol dark:text-gray-100">
               ${review.productPrice.toLocaleString()}
             </span>
-            <span className="text-xs text-gray-500 dark:text-gray-400">
-              at time of review
-            </span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">at time of review</span>
           </div>
         )}
       </div>
@@ -94,9 +87,9 @@ export default function ReviewHero({ review, showImage = true }) {
       )}
 
       {/* Metadata Row: Author, Date, Reading Time */}
-      <div className="flex flex-wrap items-center gap-4 border-b border-gray-200 pb-6 text-sm text-gray-600 dark:border-gray-800 dark:text-gray-400">
+      <div className="flex flex-wrap items-center gap-4 border-b border-bbq-cream pb-6 text-sm text-bbq-charcoal dark:border-gray-800 dark:text-gray-400">
         {/* Author */}
-        {review.author && typeof review.author === "object" && (
+        {review.author && typeof review.author === 'object' && (
           <div className="flex items-center gap-2">
             {authorImageProps && (
               <div className="relative h-10 w-10 overflow-hidden rounded-full">
@@ -110,10 +103,8 @@ export default function ReviewHero({ review, showImage = true }) {
               </div>
             )}
             <div className="flex flex-col">
-              <span className="text-xs text-gray-500 dark:text-gray-500">
-                Written by
-              </span>
-              <span className="font-semibold text-gray-900 dark:text-gray-100">
+              <span className="text-xs text-gray-500 dark:text-gray-500">Written by</span>
+              <span className="font-semibold text-bbq-charcaol dark:text-gray-100">
                 {review.author.name}
               </span>
             </div>
@@ -137,11 +128,9 @@ export default function ReviewHero({ review, showImage = true }) {
               />
             </svg>
             <time dateTime={review.publishedAt} className="flex flex-col">
-              <span className="text-xs text-gray-500 dark:text-gray-500">
-                Published
-              </span>
+              <span className="text-xs text-gray-500 dark:text-gray-500">Published</span>
               <span className="font-medium">
-                {format(parseISO(review.publishedAt), "MMMM dd, yyyy")}
+                {format(parseISO(review.publishedAt), 'MMMM dd, yyyy')}
               </span>
             </time>
           </div>
@@ -164,12 +153,8 @@ export default function ReviewHero({ review, showImage = true }) {
               />
             </svg>
             <div className="flex flex-col">
-              <span className="text-xs text-gray-500 dark:text-gray-500">
-                Reading time
-              </span>
-              <span className="font-medium">
-                {review.estReadingTime} minutes
-              </span>
+              <span className="text-xs text-gray-500 dark:text-gray-500">Reading time</span>
+              <span className="font-medium">{review.estReadingTime} minutes</span>
             </div>
           </div>
         )}
@@ -177,7 +162,7 @@ export default function ReviewHero({ review, showImage = true }) {
 
       {/* Main Product Image */}
       {showImage && (
-        <div className="relative mt-8 aspect-video overflow-hidden rounded-xl shadow-lg">
+        <div className="relative mt-8 aspect-video overflow-hidden rounded-xl shadow-lg mb-[-3rem]">
           {imageProps ? (
             <Image
               src={imageProps.src}
@@ -187,8 +172,8 @@ export default function ReviewHero({ review, showImage = true }) {
               priority
               className="object-cover"
               {...(review.mainImage?.blurDataURL && {
-                placeholder: "blur",
-                blurDataURL: review.mainImage.blurDataURL
+                placeholder: 'blur',
+                blurDataURL: review.mainImage.blurDataURL,
               })}
             />
           ) : (
@@ -211,5 +196,5 @@ export default function ReviewHero({ review, showImage = true }) {
         </div>
       )}
     </div>
-  );
+  )
 }
