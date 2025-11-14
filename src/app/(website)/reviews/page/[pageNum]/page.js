@@ -1,5 +1,6 @@
 import Container from '@/components/container'
 import ReviewCard from '@/components/review/ReviewCard'
+import BrowseByType from '@/components/review/BrowseByType'
 import { getPaginatedReviews, getTotalReviewPages } from '@/lib/payload/client'
 import Link from 'next/link'
 import {
@@ -164,12 +165,7 @@ export default async function ReviewsPaginatedPage({ params }) {
           <>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {reviews.map((review, index) => (
-                <ReviewCard
-                  key={review.id}
-                  review={review}
-                  aspect="landscape"
-                  priority={false}
-                />
+                <ReviewCard key={review.id} review={review} aspect="landscape" priority={false} />
               ))}
             </div>
 
@@ -194,20 +190,7 @@ export default async function ReviewsPaginatedPage({ params }) {
         )}
 
         {/* Browse by Type Section */}
-        <div className="mt-16 border-t border-bbq-cream pt-12 dark:border-gray-800">
-          <h2 className="mb-6 text-center text-2xl font-semibold text-gray-900 dark:text-white">
-            Browse by Type
-          </h2>
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            <BrowseTypeCard type="pellet-grill" label="Pellet Grills" icon="🔥" />
-            <BrowseTypeCard type="gas-grill" label="Gas Grills" icon="⚡" />
-            <BrowseTypeCard type="charcoal" label="Charcoal Grills" icon="🪵" />
-            <BrowseTypeCard type="kamado" label="Kamado Grills" icon="🏺" />
-            <BrowseTypeCard type="electric" label="Electric Grills" icon="🔌" />
-            <BrowseTypeCard type="portable" label="Portable Grills" icon="🎒" />
-            <BrowseTypeCard type="smoker" label="Smokers" icon="💨" />
-          </div>
-        </div>
+        <BrowseByType />
       </Container>
     </>
   )
@@ -230,12 +213,7 @@ function PaginationControls({ totalPages, currentPage }) {
           href={prevPage === 1 ? '/reviews' : `/reviews/page/${prevPage}`}
           className="flex items-center gap-2 rounded-lg border border-bbq-cream bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-bbq-fire hover:bg-bbq-fire hover:text-white dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-bbq-fire dark:hover:bg-bbq-fire"
         >
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -247,12 +225,7 @@ function PaginationControls({ totalPages, currentPage }) {
         </Link>
       ) : (
         <span className="flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-400 dark:border-gray-800 dark:bg-gray-900">
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -315,55 +288,18 @@ function PaginationControls({ totalPages, currentPage }) {
           className="flex items-center gap-2 rounded-lg border border-bbq-cream bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-bbq-fire hover:bg-bbq-fire hover:text-white dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-bbq-fire dark:hover:bg-bbq-fire"
         >
           Next
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </Link>
       ) : (
         <span className="flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-400 dark:border-gray-800 dark:bg-gray-900">
           Next
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </span>
       )}
     </nav>
-  )
-}
-
-/**
- * Browse by Type Card Component
- */
-function BrowseTypeCard({ type, label, icon }) {
-  return (
-    <a
-      href={`/reviews/type/${type}`}
-      className="group flex flex-col items-center gap-3 rounded-lg border border-bbq-cream bg-white p-6 text-center transition-all hover:border-bbq-fire hover:shadow-md dark:border-gray-800 dark:bg-gray-900 dark:hover:border-bbq-fire"
-    >
-      <span className="text-4xl">{icon}</span>
-      <span className="font-semibold text-gray-900 group-hover:text-bbq-fire dark:text-white">
-        {label}
-      </span>
-    </a>
   )
 }

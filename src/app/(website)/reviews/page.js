@@ -1,5 +1,6 @@
 import Container from '@/components/container'
 import ReviewCard from '@/components/review/ReviewCard'
+import BrowseByType from '@/components/review/BrowseByType'
 import { getPaginatedReviews } from '@/lib/payload/client'
 import Link from 'next/link'
 import {
@@ -170,20 +171,7 @@ export default async function ReviewsArchivePage() {
         )}
 
         {/* Browse by Type Section */}
-        <div className="mt-16 border-t border-bbq-cream pt-12 dark:border-gray-800">
-          <h2 className="mb-6 text-center text-2xl font-semibold text-gray-900 dark:text-white">
-            Browse by Type
-          </h2>
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            <BrowseTypeCard type="pellet-grill" label="Pellet Grills" icon="🔥" />
-            <BrowseTypeCard type="gas-grill" label="Gas Grills" icon="⚡" />
-            <BrowseTypeCard type="charcoal" label="Charcoal Grills" icon="🪵" />
-            <BrowseTypeCard type="kamado" label="Kamado Grills" icon="🏺" />
-            <BrowseTypeCard type="electric" label="Electric Grills" icon="🔌" />
-            <BrowseTypeCard type="portable" label="Portable Grills" icon="🎒" />
-            <BrowseTypeCard type="smoker" label="Smokers" icon="💨" />
-          </div>
-        </div>
+        <BrowseByType />
       </Container>
     </>
   )
@@ -267,22 +255,5 @@ function PaginationControls({ totalPages, currentPage }) {
         </span>
       )}
     </nav>
-  )
-}
-
-/**
- * Browse by Type Card Component
- */
-function BrowseTypeCard({ type, label, icon }) {
-  return (
-    <a
-      href={`/reviews/type/${type}`}
-      className="group flex flex-col items-center gap-3 rounded-lg border border-bbq-cream bg-white p-6 text-center transition-all hover:border-bbq-fire hover:shadow-md dark:border-gray-800 dark:bg-gray-900 dark:hover:border-bbq-fire"
-    >
-      <span className="text-4xl">{icon}</span>
-      <span className="font-semibold text-gray-900 group-hover:text-bbq-fire dark:text-white">
-        {label}
-      </span>
-    </a>
   )
 }
