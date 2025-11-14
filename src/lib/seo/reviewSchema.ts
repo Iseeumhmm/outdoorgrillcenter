@@ -363,7 +363,14 @@ export function generateReviewsCollectionSchema(
                 }
               }),
               ...(imageUrl && { image: imageUrl }),
-              ...(review.excerpt && { description: review.excerpt })
+              ...(review.excerpt && { description: review.excerpt }),
+              aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: review.rating?.toString() || "0",
+                bestRating: "5",
+                worstRating: "1",
+                ratingCount: "1"
+              }
             },
             reviewRating: {
               "@type": "Rating",
