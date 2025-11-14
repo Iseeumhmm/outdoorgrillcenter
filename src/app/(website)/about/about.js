@@ -1,19 +1,37 @@
-import Container from "@/components/container";
-import { urlForImage } from "@/lib/payload/image";
-import Image from "next/image";
-import Link from "next/link";
+import Container from '@/components/container'
+import { urlForImage } from '@/lib/payload/image'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function About({ authors, settings }) {
   return (
-    <Container>
+    <Container alt>
       <h1 className="text-[#2D2D2D] mb-3 mt-2 text-center text-3xl font-semibold tracking-tight dark:text-white lg:text-4xl lg:leading-snug">
         About
       </h1>
-      <div className="text-center">
-        <p className="text-lg">We are a small passionate team.</p>
+      <br />
+      <br />
+      <div className="text-left">
+        <p className="text-lg">
+          Outdoor Grill Center's purpose is to help you get the most out of your outdoor cooking
+          experience by providing honest, expert reviews and real-world insights.
+        </p>
+        <br />
+        <p className="text-lg">
+          We were founded by a father of three and lifetime grilling aficionado with over 30 years
+          of expertise behind the flame, so each review we post reflects enthusiasm and direct
+          knowledge.
+        </p>
+        <br />
+        <p className="text-lg">
+          Whether you're comparing the latest gas barbecues, researching the greatest smokers, or
+          seeking for the right accessories to elevate your backyard cookouts, Outdoor Grill Center
+          is your go-to source for unbiased opinions, practical advice, and real enthusiasm for the
+          art of cooking.
+        </p>
       </div>
 
-      <div className="mb-16 mt-6 grid grid-cols-3 gap-5 md:mb-32 md:mt-16 md:gap-16">
+      {/* <div className="mb-16 mt-6 grid grid-cols-3 gap-5 md:mb-32 md:mt-16 md:gap-16">
         {authors.slice(0, 3).map(author => {
           const imageProps = urlForImage(author?.image) || null;
           return (
@@ -34,8 +52,8 @@ export default function About({ authors, settings }) {
             </div>
           );
         })}
-      </div>
-
+      </div> */}
+      {/* 
       <div className="prose mx-auto mt-14 text-center dark:prose-invert">
         <p>
           We provide real-time connectivity to enable software
@@ -51,7 +69,7 @@ export default function About({ authors, settings }) {
         <p>
           <Link href="/contact">Get in touch</Link>
         </p>
-      </div>
+      </div> */}
     </Container>
-  );
+  )
 }

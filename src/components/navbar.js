@@ -16,20 +16,20 @@ export default function Navbar(props) {
       label: 'Home',
       href: '/',
     },
-    // {
-    //   label: "About",
-    //   href: "/about"
-    // },
-    // {
-    //   label: "Contact",
-    //   href: "/contact"
-    // }
+    {
+      label: 'About',
+      href: '/about',
+    },
   ]
 
   const rightmenu = [
     {
       label: 'Reviews',
       href: '/reviews',
+    },
+    {
+      label: 'Contact',
+      href: '/contact',
     },
     // {
     //   label: 'Archive',

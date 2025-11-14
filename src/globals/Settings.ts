@@ -103,11 +103,11 @@ export const Settings: GlobalConfig = {
               },
             },
             {
-              name: 'w3ckey',
+              name: 'resendApiKey',
               type: 'text',
               required: true,
               admin: {
-                description: 'Web3Forms API key for contact form submissions',
+                description: 'Resend API key for contact form submissions',
               },
             },
           ],

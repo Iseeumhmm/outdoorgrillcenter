@@ -3,6 +3,15 @@ import { withPayload } from '@payloadcms/next/withPayload'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Your Next.js config here
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/reviews',
+        permanent: true, // 301 redirect
+      },
+    ]
+  },
   serverExternalPackages: ['payload', 'graphql', 'libsql', 'drizzle-kit', 'drizzle-kit/api', 'pino', 'pino-pretty', 'jose'],
   images: {
     remotePatterns: [

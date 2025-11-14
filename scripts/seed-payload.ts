@@ -1214,7 +1214,7 @@ async function seed() {
         description: 'Expert reviews of outdoor grills, smokers, and BBQ equipment. Find your perfect grill with our in-depth product testing and ratings.',
         url: 'https://outdoorgrillcenter.com',
         copyright: '© 2025 Outdoor Grill Center. All rights reserved.',
-        w3ckey: 'placeholder-web3forms-key',
+        resendApiKey: 'placeholder-resend-key',
         logo: media.logo.id,
         logoalt: media.logo.id,
       },

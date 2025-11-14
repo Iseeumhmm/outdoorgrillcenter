@@ -590,9 +590,9 @@ export interface Setting {
    */
   phone?: string | null;
   /**
-   * Web3Forms API key for contact form submissions
+   * Resend API key for contact form submissions
    */
-  w3ckey: string;
+  resendApiKey: string;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -610,7 +610,7 @@ export interface SettingsSelect<T extends boolean = true> {
   copyright?: T;
   email?: T;
   phone?: T;
-  w3ckey?: T;
+  resendApiKey?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

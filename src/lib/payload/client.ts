@@ -269,7 +269,7 @@ export async function getSettings() {
       description: 'Stablo - popular open-source next.js and sanity blog template',
       url: 'https://stablo-pro.web3templates.com',
       copyright: 'Stablo',
-      w3ckey: '',
+      resendApiKey: '',
     } as any
   }
 }
