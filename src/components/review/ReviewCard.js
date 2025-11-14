@@ -13,12 +13,14 @@ import ProductTypeBadge from "./ProductTypeBadge";
  * @param {string} aspect - Image aspect ratio: 'landscape' | 'square' | 'custom'
  * @param {boolean} minimal - Minimal variant without pros/cons preview
  * @param {boolean} pathPrefix - Path prefix for review links (default: '/reviews')
+ * @param {boolean} priority - Whether to prioritize image loading (for above-fold images)
  */
 export default function ReviewCard({
   review,
   aspect = "landscape",
   minimal = false,
-  pathPrefix = "/reviews"
+  pathPrefix = "/reviews",
+  priority = false
 }) {
   const imageProps = review?.mainImage ? urlForImage(review.mainImage) : null;
 
@@ -47,6 +49,7 @@ export default function ReviewCard({
               fill
               sizes="(max-width: 768px) 100vw, 33vw"
               className="object-cover"
+              priority={priority}
               {...(review.mainImage?.blurDataURL && {
                 placeholder: "blur",
                 blurDataURL: review.mainImage.blurDataURL

@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { formatSlug } from '../utils/formatSlug'
 import { calculateReadingTime } from '../utils/calculateReadingTime'
+import { revalidateReviewsAfterChange, revalidateReviewsAfterDelete } from '../hooks/revalidateReviews'
 
 export const Reviews: CollectionConfig = {
   slug: 'reviews',
@@ -13,6 +14,10 @@ export const Reviews: CollectionConfig = {
   },
   versions: {
     drafts: true,
+  },
+  hooks: {
+    afterChange: [revalidateReviewsAfterChange],
+    afterDelete: [revalidateReviewsAfterDelete],
   },
   fields: [
     {

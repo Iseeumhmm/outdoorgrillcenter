@@ -315,3 +315,110 @@ function formatProductType(slug: string): string {
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 }
+
+/**
+ * Generate CollectionPage schema with ItemList for reviews archive page
+ * @param reviews - Array of Review objects
+ * @param currentPage - Current page number (1-based)
+ * @param pageUrl - Full URL of current page
+ * @returns Schema.org JSON-LD object
+ */
+export function generateReviewsCollectionSchema(
+  reviews: Review[],
+  currentPage: number,
+  pageUrl: string
+): object {
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://outdoorgrillcenter.com";
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `Grill Reviews${currentPage > 1 ? ` - Page ${currentPage}` : ""} - Outdoor Grill Center`,
+    description:
+      "In-depth reviews of pellet grills, gas grills, charcoal grills, and more. Expert ratings, pros & cons, and buying guides for outdoor cooking equipment.",
+    url: pageUrl,
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: reviews.length,
+      itemListElement: reviews.map((review, index) => {
+        const imageUrl = getImageUrl(review.mainImage, siteUrl);
+        const productName = review.productName || review.title;
+
+        return {
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "Review",
+            "@id": `${siteUrl}/reviews/${review.slug}`,
+            url: `${siteUrl}/reviews/${review.slug}`,
+            name: review.title,
+            itemReviewed: {
+              "@type": "Product",
+              name: productName,
+              ...(review.productBrand && {
+                brand: {
+                  "@type": "Brand",
+                  name: review.productBrand
+                }
+              }),
+              ...(imageUrl && { image: imageUrl }),
+              ...(review.excerpt && { description: review.excerpt })
+            },
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: review.rating?.toString() || "0",
+              bestRating: "5",
+              worstRating: "1"
+            },
+            author: {
+              "@type": "Person",
+              name:
+                typeof review.author === "object"
+                  ? review.author.name
+                  : "Outdoor Grill Center"
+            },
+            ...(review.publishedAt && {
+              datePublished: review.publishedAt
+            })
+          }
+        };
+      })
+    }
+  };
+}
+
+/**
+ * Generate BreadcrumbList schema for archive pages
+ * @param pageName - Name of the current page
+ * @param pageUrl - URL of the current page
+ * @param parentPage - Optional parent page { name, url }
+ * @returns Schema.org JSON-LD object
+ */
+export function generateArchiveBreadcrumbSchema(
+  pageName: string,
+  pageUrl: string,
+  parentPage?: { name: string; url: string }
+): object {
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://outdoorgrillcenter.com";
+
+  const breadcrumbs = [{ name: "Home", url: siteUrl }];
+
+  if (parentPage) {
+    breadcrumbs.push(parentPage);
+  }
+
+  breadcrumbs.push({ name: pageName, url: pageUrl });
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbs.map((crumb, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: crumb.name,
+      item: crumb.url
+    }))
+  };
+}

@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { formatSlug } from '../utils/formatSlug'
+import { revalidateCategoriesAfterChange, revalidateCategoriesAfterDelete } from '../hooks/revalidateCategories'
 
 export const Categories: CollectionConfig = {
   slug: 'categories',
@@ -8,6 +9,10 @@ export const Categories: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [revalidateCategoriesAfterChange],
+    afterDelete: [revalidateCategoriesAfterDelete],
   },
   fields: [
     {

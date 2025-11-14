@@ -2,9 +2,14 @@ import Container from '@/components/container'
 import ReviewCard from '@/components/review/ReviewCard'
 import { getReviewsByProductType, getAvailableProductTypes } from '@/lib/payload/client'
 import Link from 'next/link'
+import {
+  generateReviewsCollectionSchema,
+  generateArchiveBreadcrumbSchema,
+} from '@/lib/seo/reviewSchema'
 
 /**
  * Generate static paths for all product type pages
+ * Revalidation is handled by afterChange hooks in the Reviews collection
  */
 export async function generateStaticParams() {
   const productTypes = await getAvailableProductTypes()
@@ -15,12 +20,54 @@ export async function generateStaticParams() {
  * Generate metadata for product type pages
  */
 export async function generateMetadata({ params }) {
-  const productType = params.productType
+  const resolvedParams = await params
+  const productType = resolvedParams.productType
   const formattedType = formatProductType(productType)
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://outdoorgrillcenter.com'
+  const pageUrl = `${siteUrl}/reviews/type/${productType}`
+
+  const description = `Expert reviews of ${formattedType.toLowerCase()}s. Compare ratings, features, pros & cons, and find the best ${formattedType.toLowerCase()} for your outdoor cooking needs.`
 
   return {
     title: `${formattedType} Reviews - Outdoor Grill Center`,
-    description: `Expert reviews of ${formattedType.toLowerCase()}s. Compare ratings, features, pros & cons, and find the best ${formattedType.toLowerCase()} for your outdoor cooking needs.`,
+    description,
+
+    alternates: {
+      canonical: pageUrl,
+    },
+
+    openGraph: {
+      title: `${formattedType} Reviews - Outdoor Grill Center`,
+      description,
+      url: pageUrl,
+      siteName: 'Outdoor Grill Center',
+      type: 'website',
+      locale: 'en_US',
+    },
+
+    twitter: {
+      card: 'summary_large_image',
+      title: `${formattedType} Reviews`,
+      description,
+    },
+
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+
+    keywords: `${formattedType.toLowerCase()} reviews, ${formattedType.toLowerCase()} ratings, best ${formattedType.toLowerCase()}, ${formattedType.toLowerCase()} comparison, outdoor grill reviews`,
+
+    authors: [{ name: 'Outdoor Grill Center' }],
+
+    category: 'Product Reviews',
   }
 }
 
@@ -29,12 +76,34 @@ export async function generateMetadata({ params }) {
  * Displays reviews filtered by product type (e.g., pellet grills, gas grills)
  */
 export default async function ProductTypeFilterPage({ params }) {
-  const productType = params.productType
+  const resolvedParams = await params
+  const productType = resolvedParams.productType
   const reviews = await getReviewsByProductType(productType, 100)
   const formattedType = formatProductType(productType)
 
+  // Generate Schema.org structured data
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://outdoorgrillcenter.com'
+  const pageUrl = `${siteUrl}/reviews/type/${productType}`
+
+  const collectionSchema = generateReviewsCollectionSchema(reviews, 1, pageUrl)
+  const breadcrumbSchema = generateArchiveBreadcrumbSchema(
+    `${formattedType} Reviews`,
+    pageUrl,
+    { name: 'Reviews', url: `${siteUrl}/reviews` }
+  )
+
   return (
     <>
+      {/* Schema.org JSON-LD structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       <Container>
         {/* Breadcrumb Navigation */}
         <nav className="mb-8 flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
@@ -67,8 +136,13 @@ export default async function ProductTypeFilterPage({ params }) {
             </div>
 
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {reviews.map((review) => (
-                <ReviewCard key={review.id} review={review} aspect="landscape" />
+              {reviews.map((review, index) => (
+                <ReviewCard
+                  key={review.id}
+                  review={review}
+                  aspect="landscape"
+                  priority={index < 3}
+                />
               ))}
             </div>
           </>

@@ -1,6 +1,6 @@
 import Container from '@/components/container'
 import ReviewCard from '@/components/review/ReviewCard'
-import { getPaginatedReviews } from '@/lib/payload/client'
+import { getPaginatedReviews, getTotalReviewPages } from '@/lib/payload/client'
 import Link from 'next/link'
 import {
   generateReviewsCollectionSchema,
@@ -9,23 +9,43 @@ import {
 } from '@/lib/seo/reviewSchema'
 
 /**
- * Reviews Archive Page - Page 1
- * Displays the first page of reviews (fully static)
- *
- * Subsequent pages are handled by /reviews/page/[pageNum]/page.js
- * This allows for full static generation without searchParams
- *
- * Revalidation is handled by afterChange hooks in the Reviews collection
+ * Reviews Archive Page - Paginated
+ * Displays paginated reviews for pages 2+
+ * Page 1 is handled by /reviews/page.js
  */
+
+// Enable Incremental Static Regeneration (ISR)
+// Revalidate every hour to keep content fresh
+export const revalidate = 3600
+
+const POSTS_PER_PAGE = 12
 
 /**
- * Generate static metadata for SEO
+ * Generate static paths for all review pages
  */
-export async function generateMetadata() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://outdoorgrillcenter.com'
-  const canonicalUrl = `${siteUrl}/reviews`
+export async function generateStaticParams() {
+  const totalPages = await getTotalReviewPages(POSTS_PER_PAGE)
 
-  const title = 'Grill Reviews - Outdoor Grill Center'
+  // Generate params for pages 2 through totalPages
+  // Page 1 is handled by /reviews/page.js
+  const params = []
+  for (let i = 2; i <= totalPages; i++) {
+    params.push({ pageNum: i.toString() })
+  }
+
+  return params
+}
+
+/**
+ * Generate dynamic metadata for SEO
+ */
+export async function generateMetadata({ params }) {
+  const resolvedParams = await params
+  const currentPage = parseInt(resolvedParams.pageNum) || 2
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://outdoorgrillcenter.com'
+  const canonicalUrl = `${siteUrl}/reviews/page/${currentPage}`
+
+  const title = `Grill Reviews - Page ${currentPage} - Outdoor Grill Center`
   const description =
     'In-depth reviews of pellet grills, gas grills, charcoal grills, and more. Expert ratings, pros & cons, and buying guides for outdoor cooking equipment.'
 
@@ -73,24 +93,23 @@ export async function generateMetadata() {
   }
 }
 
-export default async function ReviewsArchivePage() {
-  // This page always shows page 1
-  // Subsequent pages are handled by /reviews/page/[pageNum]
-  const currentPage = 1
-  const pageIndex = 0 // Page 1 = index 0
-  const postsPerPage = 12
+export default async function ReviewsPaginatedPage({ params }) {
+  // Get current page from params (default to 2)
+  const resolvedParams = await params
+  const currentPage = parseInt(resolvedParams.pageNum) || 2
+  const pageIndex = currentPage - 1 // Convert to 0-based index
 
-  // Fetch paginated reviews for page 1
+  // Fetch paginated reviews
   const reviewData = await getPaginatedReviews({
     pageIndex,
-    limit: postsPerPage,
+    limit: POSTS_PER_PAGE,
   })
 
-  const { reviews, totalPages } = reviewData
+  const { reviews, totalPages, page } = reviewData
 
   // Generate Schema.org structured data
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://outdoorgrillcenter.com'
-  const pageUrl = `${siteUrl}/reviews`
+  const pageUrl = `${siteUrl}/reviews/page/${currentPage}`
 
   const collectionSchema = generateReviewsCollectionSchema(reviews, currentPage, pageUrl)
   const breadcrumbSchema = generateArchiveBreadcrumbSchema('Grill Reviews', pageUrl)
@@ -113,6 +132,19 @@ export default async function ReviewsArchivePage() {
       />
 
       <Container>
+        {/* Breadcrumb Navigation */}
+        <nav className="mb-8 flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+          <Link href="/" className="hover:text-bbq-fire">
+            Home
+          </Link>
+          <span>/</span>
+          <Link href="/reviews" className="hover:text-bbq-fire">
+            Reviews
+          </Link>
+          <span>/</span>
+          <span className="font-medium text-gray-900 dark:text-white">Page {currentPage}</span>
+        </nav>
+
         {/* Page Header */}
         <div className="mb-12 text-center">
           <h1 className="text-4xl font-bold tracking-tight text-bbq-charcoal dark:text-white lg:text-5xl">
@@ -121,6 +153,9 @@ export default async function ReviewsArchivePage() {
           <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-600 dark:text-gray-400">
             Expert reviews of outdoor grills and cooking equipment. Find the perfect grill for your
             backyard with our detailed analysis, ratings, and buying guides.
+          </p>
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-500">
+            Page {currentPage} of {totalPages}
           </p>
         </div>
 
@@ -133,7 +168,7 @@ export default async function ReviewsArchivePage() {
                   key={review.id}
                   review={review}
                   aspect="landscape"
-                  priority={index < 3}
+                  priority={false}
                 />
               ))}
             </div>
@@ -141,30 +176,19 @@ export default async function ReviewsArchivePage() {
             {/* Pagination */}
             {totalPages > 1 && (
               <div className="mt-12">
-                <PaginationControls totalPages={totalPages} currentPage={currentPage} />
+                <PaginationControls totalPages={totalPages} currentPage={page} />
               </div>
             )}
           </>
         ) : (
           <div className="py-12 text-center">
-            <svg
-              className="mx-auto h-16 w-16 text-gray-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              />
-            </svg>
             <h3 className="mt-4 text-xl font-semibold text-gray-900 dark:text-white">
-              No reviews yet
+              No reviews on this page
             </h3>
             <p className="mt-2 text-gray-600 dark:text-gray-400">
-              Check back soon for expert grill reviews and buying guides.
+              <Link href="/reviews" className="text-bbq-fire hover:underline">
+                Return to page 1
+              </Link>
             </p>
           </div>
         )}
@@ -193,28 +217,65 @@ export default async function ReviewsArchivePage() {
  * Pagination Controls Component
  */
 function PaginationControls({ totalPages, currentPage }) {
+  const prevPage = currentPage - 1
   const nextPage = currentPage + 1
+  const hasPrev = currentPage > 1
   const hasNext = currentPage < totalPages
 
   return (
     <nav className="flex items-center justify-center gap-2">
-      {/* Previous Button - disabled on page 1 */}
-      <span className="flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-400 dark:border-gray-800 dark:bg-gray-900">
-        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
-        Previous
-      </span>
+      {/* Previous Button */}
+      {hasPrev ? (
+        <Link
+          href={prevPage === 1 ? '/reviews' : `/reviews/page/${prevPage}`}
+          className="flex items-center gap-2 rounded-lg border border-bbq-cream bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-bbq-fire hover:bg-bbq-fire hover:text-white dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-bbq-fire dark:hover:bg-bbq-fire"
+        >
+          <svg
+            className="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          Previous
+        </Link>
+      ) : (
+        <span className="flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-400 dark:border-gray-800 dark:bg-gray-900">
+          <svg
+            className="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          Previous
+        </span>
+      )}
 
       {/* Page Numbers */}
       <div className="hidden items-center gap-1 sm:flex">
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => {
-          // Show first page, last page, and pages around current (page 1)
-          const showPage = pageNum === 1 || pageNum === totalPages || pageNum === 2
+          // Show first page, last page, current page, and pages around current
+          const showPage =
+            pageNum === 1 ||
+            pageNum === totalPages ||
+            (pageNum >= currentPage - 1 && pageNum <= currentPage + 1)
 
           if (!showPage) {
             // Show ellipsis
-            if (pageNum === 3) {
+            if (pageNum === currentPage - 2 || pageNum === currentPage + 2) {
               return (
                 <span key={pageNum} className="px-2 text-gray-400">
                   ...
@@ -224,13 +285,13 @@ function PaginationControls({ totalPages, currentPage }) {
             return null
           }
 
-          if (pageNum === 1) {
+          if (pageNum === currentPage) {
             return (
               <span
                 key={pageNum}
                 className="rounded-lg bg-bbq-fire px-4 py-2 text-sm font-bold text-white"
               >
-                1
+                {pageNum}
               </span>
             )
           }
@@ -238,7 +299,7 @@ function PaginationControls({ totalPages, currentPage }) {
           return (
             <Link
               key={pageNum}
-              href={`/reviews/page/${pageNum}`}
+              href={pageNum === 1 ? '/reviews' : `/reviews/page/${pageNum}`}
               className="rounded-lg border border-bbq-cream bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-bbq-fire hover:bg-bbq-cream dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-bbq-fire"
             >
               {pageNum}
@@ -254,15 +315,35 @@ function PaginationControls({ totalPages, currentPage }) {
           className="flex items-center gap-2 rounded-lg border border-bbq-cream bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-bbq-fire hover:bg-bbq-fire hover:text-white dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-bbq-fire dark:hover:bg-bbq-fire"
         >
           Next
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          <svg
+            className="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
           </svg>
         </Link>
       ) : (
         <span className="flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-400 dark:border-gray-800 dark:bg-gray-900">
           Next
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          <svg
+            className="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
           </svg>
         </span>
       )}

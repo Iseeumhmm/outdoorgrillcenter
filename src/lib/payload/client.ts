@@ -467,6 +467,33 @@ export async function getAvailableProductTypes() {
   }
 }
 
+/**
+ * Get total number of review pages for static generation
+ * @param pageSize - Number of reviews per page (default: 12)
+ * @returns Total number of pages
+ */
+export async function getTotalReviewPages(pageSize: number = 12) {
+  try {
+    const payload = await getPayload({ config: configPromise })
+
+    const { totalDocs } = await payload.find({
+      collection: 'reviews',
+      depth: 0,
+      limit: 0,
+      where: {
+        publishedAt: {
+          exists: true,
+        },
+      },
+    })
+
+    return Math.ceil(totalDocs / pageSize)
+  } catch (error) {
+    console.warn('Failed to get total review pages:', error instanceof Error ? error.message : 'Unknown error')
+    return 1
+  }
+}
+
 // Legacy aliases for backward compatibility
 export const getAllPosts = getAllReviews
 export const getPaginatedPosts = getPaginatedReviews
